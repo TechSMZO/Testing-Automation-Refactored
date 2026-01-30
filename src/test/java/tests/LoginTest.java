@@ -18,12 +18,10 @@ import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxOptions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import org.testng.annotations.*;
@@ -34,6 +32,7 @@ import io.github.bonigarcia.wdm.WebDriverManager;
 import utilities.ExtentManager;
 
 
+// Branch practice: testing git workflow
 
 public class LoginTest {
     WebDriver driver;
@@ -119,11 +118,12 @@ public class LoginTest {
         	WebElement emailField = wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("emailphone")));
         	emailField.clear();
         	emailField.sendKeys("9076763805");
-        test.pass("Entered Username");
+        	test.pass("Entered Username");
         }
         catch (Exception e) {
-			// TODO: handle exception
-        	System.out.println(e);
+        	test.fail("Failed to enter username: " + e.getMessage());
+        	test.addScreenCaptureFromPath(ExtentManager.captureScreenshot(driver, "username_entry_error"));
+        	throw new RuntimeException("Unable to enter username", e);
 		} 
         driver.findElement(By.id("password")).sendKeys("12345678");
         test.pass("Entered Password");
