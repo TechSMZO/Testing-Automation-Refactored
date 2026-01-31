@@ -32,7 +32,6 @@ import io.github.bonigarcia.wdm.WebDriverManager;
 import utilities.ExtentManager;
 
 
-// Branch practice: testing git workflow
 
 public class LoginTest {
     WebDriver driver;
