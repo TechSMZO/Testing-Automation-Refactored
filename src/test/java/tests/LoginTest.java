@@ -64,7 +64,7 @@ public class LoginTest {
         switch (browser.toLowerCase()) {
             case "chrome":
 				System.out.println("🚨 ABOUT TO CREATE ChromeDriver WITH OPTIONS");
-System.out.println("🚨 OPTIONS = " + options.asMap());
+// System.out.println("🚨 OPTIONS = " + options.asMap());
 
             	WebDriverManager.chromedriver().setup(); // Include this if you're using WebDriverManager
                 ChromeOptions options = new ChromeOptions();
