@@ -51,6 +51,7 @@ public class LoginTest {
 
     @BeforeClass
     public void setUp() {
+		  System.out.println("🚨🚨 RUNNING UPDATED CI CODE - " + System.currentTimeMillis());
     	
 //    	if(this.browser == null) {
 //    		browser = "chrome";
@@ -62,6 +63,9 @@ public class LoginTest {
     		System.out.println(">>> Browser Param: " + browser);
         switch (browser.toLowerCase()) {
             case "chrome":
+				System.out.println("🚨 ABOUT TO CREATE ChromeDriver WITH OPTIONS");
+System.out.println("🚨 OPTIONS = " + options.asMap());
+
             	WebDriverManager.chromedriver().setup(); // Include this if you're using WebDriverManager
                 ChromeOptions options = new ChromeOptions();
 
