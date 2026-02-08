@@ -18,6 +18,7 @@ import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxOptions;
@@ -60,7 +61,18 @@ public class LoginTest {
         switch (browser.toLowerCase()) {
             case "chrome":
             	WebDriverManager.chromedriver().setup(); // Include this if you're using WebDriverManager
-                this.driver = new ChromeDriver();        // ✅ Assign to the class variable
+                ChromeOptions options = new ChromeOptions();
+
+// REQUIRED for GitHub Actions
+options.addArguments("--headless=new");
+options.addArguments("--no-sandbox");
+options.addArguments("--disable-dev-shm-usage");
+options.addArguments("--window-size=1920,1080");
+options.addArguments("--disable-gpu");
+
+// Optional but safe
+options.addArguments("--remote-allow-origins=*");
+                this.driver = new ChromeDriver(options);        // ✅ Assign to the class variable
                 this.driver.manage().window().maximize();
                 break;
             case "firefox":
