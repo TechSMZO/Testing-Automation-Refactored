@@ -42,9 +42,9 @@ public class LoginTest {
 
     
     
- //    public LoginTest(String browser) {
- //    	 this.browser = "chrome";
-	// }
+    public LoginTest(String browser) {
+    	 this.browser = "chrome";
+	}
 
 
   
