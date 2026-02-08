@@ -1,0 +1,520 @@
+courier_slug,status
+DTDC,Pickup Reassigned
+DELHIVERY,Vehicle Departed
+DELHIVERY,weight captured
+DELHIVERY,Vehicle delayed - Controllable
+DELHIVERY,Pincode updated by Addfix
+DELHIVERY,Package details changed by shipper
+DELHIVERY,Package details changed by Delhivery
+BLUEDART,CONTACT CUSTOMER SERVICE
+BLUEDART,SHIPPER INSTRUCTED TO RTO THE SHIPMENT
+BLUEDART,SHIPMENT REDIRECTED ON SAME AWB
+BLUEDART,"WRONG PINCODE, WILL IMPACT DELIVERY"
+DELHIVERY,Agent remark verified
+DELHIVERY,Consignee unavailable
+DELHIVERY,Ewaybill updated
+BLUEDART,PAPER WORK INSCAN
+BLUEDART,LOAD ON HOLD;SPACE CONSTRAINT-COMML FLT
+DELHIVERY,Agent remark incorrect
+DELHIVERY,Package found in Audit
+DELHIVERY,Package Missing in Audit
+DELHIVERY,Bad/Incomplete Address
+BLUEDART,DELIVERY  SCHEDULED FOR NEXT WORKING DAY
+BLUEDART,OFFICE CLOSED; UNABLE TO DELIVER
+BLUEDART,SHPT RCVD AT DESTN LOC FOR DLVRY ATTEMPT
+BLUEDART,"P/U UNSUCCESSFUL, INCOMPLETE PAPERWORK"
+BLUEDART,CNEE REFUSED ID/OTP NOT SHARED-INCORRECT
+BLUEDART,NEED DEPARTMENT NAME/EXTENTION NUMBER
+BLUEDART,C\
+EKART,vendor_received
+BLUEDART,DELAY CAUSED BEYOND CONTROL
+BLUEDART,"P/U UNSUCCESSFUL, HOLIDAY-PREMISE CLOSED"
+BLUEDART,CLUBBED CANVAS BAG SCAN
+BLUEDART,PICKUP CANCELLED BY CUSTOMER
+BLUEDART,LOAD ON HOLD;SPACE CONSTRAINT IN NET VEH
+SHADOW_FAX,Cid
+BLUEDART,"NETWORK DELAY, WILL IMPACT TIMELY DELIVERY"
+BLUEDART,Order Cancelled by consignee ? OTP Not Shared
+BLUEDART,AUTO PICKUP REGISTERED
+BLUEDART,PICKUP RE-SCHEDULED BY CALL
+BLUEDART,"NETWORK ISSUE, WILL IMPACT DELIVERY"
+BLUEDART,INCORRECT PHONE NUMBER
+BLUEDART,DELIVERY ON NEXT BUSINESS DAY
+BLUEDART,"P/U ON NEXT BUSINESS DAY, Partial pickup handover"
+BLUEDART,PICKUP NOT READY. SENT TO STORE
+BLUEDART,"P/U UNSUCCESSFUL, CUSTOMER UNAVAILABLE"
+BLUEDART,PROHIBITED AREA-ENTRY RESTRICTED FOR DELIVERY
+BLUEDART,NETWORK ISSUES
+AMAZON,RecipientRequestedAlternateDeliveryTiming
+EKART,notpicked_attempted_customernoresponse
+BLUEDART,ON HOLD AS REQUESTED BY SHIPPER
+EKART,rto_undelivered_attempted
+BLUEDART,"PROCESS COMPLETED, READY TO DESPATCH"
+BLUEDART,HELD AT ORIGIN FOR FURTHER PROCESSING
+BLUEDART,"PICKUP CLOSED, SENT ON ANOTHER AWB"
+BLUEDART,DELIVERY SCHEDULED THROUGH APPOINTMENT
+BLUEDART,NETWORK DELAY
+DELHIVERY,Service Disruption
+DTDC,SHIPMENT RECEIVED SHORT
+BLUEDART,PICKUP CANCELLED; QUALITY DISPUTE
+EKART,NotPicked_NotAttempted_HeavyLoad
+DELHIVERY,Inbound against permanent connection [custody scan]
+DELHIVERY,Outbound against permanent connection [custody scan]
+EKART,cancelled
+BLUEDART,PICKUP HANDLED BY ANOTHER COURIER
+BLUEDART,"PICKUP NOT ATTEMPTED, ADDRESS INCOMPLETE"
+DELHIVERY,Short Bag
+DTDC,Return as per client instruction.
+DTDC,Set RTO initiated
+DTDC,VEHICLE BREAKDOWN
+DELHIVERY,On hold. Ewaybill missing/invalid
+DELHIVERY,Shipper unavailable
+DELHIVERY,Re-attempt at RCN 
+DELHIVERY,Status Changed
+DELHIVERY,Doubtful Order
+DELHIVERY,Reject but package intact
+DELHIVERY,Short shipment
+DELHIVERY,Shipper has re-located
+DELHIVERY,Seller/CWH permanently closed
+DELHIVERY,Content mismatch/missing - package tampered
+DELHIVERY,Received At Delhivery Hub
+DELHIVERY,Consignee verified cancellation
+DELHIVERY,Damaged shipment to be attempted 
+DELHIVERY,Regulatory paperwork insufficient
+DELHIVERY,Shipment seized by consignee
+DELHIVERY,Reset to Pending
+DELHIVERY,Removed From Dispatch
+XPRESSBEES,Pickup not ready with vendor
+DELHIVERY,Vehicle Accident 
+DELHIVERY,Air Offload
+DELHIVERY,Package marked safe for movement by Air
+XPRESSBEES,Concern person is not available
+DELHIVERY,Transit Delay 
+XPRESSBEES,Order got cancelled
+MOVINB2B,ATTEMPTED_DELIVERY
+MOVINB2B,OUTSCANNED_DESTINATION_BRANCH
+DELHIVERY,Zero liability shipment 
+BLUEDART,CONSIGNEE HAS GIVEN BDE HAL ADDRESS
+XPRESSBEES,Customer not available x Security/Gate restriction and customer not reachable. Entry not permitted in office/building x Security/Gate restriction and customer not reachable. Entry not permitted in office/building
+DELHIVERY,Seller cancelled the order
+EKARTB2B,UG
+EKARTB2B,LG S
+EKARTB2B,DPH
+EKARTB2B,CP
+DELHIVERY,Unlock - Wrong QR Code
+XPRESSBEES,RTO Out For Delivery
+DELHIVERY,Scan location auto-updated to co-located center
+DELHIVERY,Reject - Brand box/seal damaged
+XPRESSBEESB2B,Unable Attempt Delivery
+BLUEDART,OUT FOR DELIVERY - DETAILS AWAITED AWAITED
+BLUEDART,PICKUP CANCELLED BY CALL
+DTDC,Pickup Cancelled
+DELHIVERY,Vehicle Breakdown
+DELHIVERY,Reject - Missing client label or invoice
+DELHIVERY,RTO due to Seller Dependency 
+DELHIVERY,Hold as per client instruction
+DELHIVERY,"Address on package is different from  HQ address"""""
+XPRESSBEES,Customer not available x Security/Gate restriction and customer not reachable. Entry not permitted in office/building
+XPRESSBEES,NonDeliveredDispute
+XPRESSBEES,Self Collect
+DTDC,HELD IN HUB DUE TO PAPERWORK MISSING
+DTDC,MISROUTED SHIPMENT
+XPRESSBEES,Customer not available x Office or Residence closed x Office or Residence closed
+XPRESSBEES,DeliveredDispute
+DELHIVERY,Canceled as per client\
+DELHIVERY,Re-Scheduled as per client\
+XPRESSBEES,Lost
+DELHIVERY,Pickup Dispute - PNPR Initiated
+XPRESSBEES,Customer not available x Purchased from somewhere else
+DELHIVERY,Reject - RID not found
+EKART,lost
+DELHIVERY,Damaged/Used Product
+DTDC,WRONG PINCODE
+BLUEDART,"P/U CANCELLED, PINCODE NOT SERVICEABLE"
+BLUEDART,CONSIGNEE ADD IS EDUCATIONAL INSTITUTION
+BLUEDART,CONSIGNEE REFUSED TO PAY NECESSARY CHARGES
+BLUEDART,"P/U ON NEXT BUSINESS DAY, NO SHIPMENT"
+BLUEDART,DUPLICATE TOKEN CLOSED
+BLUEDART,P/U RESCHEDULED : CAPACITY CONSTRAINT
+MOVINB2B,INSCANNED_DESTINATION_BRANCH
+BLUEDART,RTO at Origin outsacan for Delivery
+BLUEDART,RETURN TO SHIPPER
+ARAMEX,On Hold - Shipment will depart on next scheduled flight
+ARAMEX,Prohibited items - Shipment will be returned to the shipper
+ARAMEX,On Hold - Dangerous Goods - Material Safety Data Sheet (MSDS) is required
+ARAMEX,On Hold - Pending Missing Documents prior to Shipping
+ARAMEX,Shipment received at Aramex origin sorting facility
+BLUEDART,REGISTERED FOR COUNTER
+EKART,NotPicked_Attempted_RequestForReschedule
+DTDC,Received At Delivery Centre
+RAJDHANI,
+WORLDFIRST,The package is at the clearing agency awaiting final release.
+SKART,Shipment received at Aramex origin sorting facility
+SKART,Customer ID received
+SKART,Handed over to Carrier. (Hub Name: sKart ACLC2)
+SKART,Manifest Generated at HUB. (Hub Name: sKart ACLC2)
+SKART,Bag Closed at Hub. (Hub Name: sKart ACLC2)
+SKART,Shipment Inserted in Bag at Hub. (Hub Name: sKart ACLC2)
+EKART,untraceable
+ARAMEX,Forwarding Delay - Received after the carrier departure time
+WORLDFIRST,Power of Attorney documentation is missing and required for clearance. Awaiting information from the
+SHIPUNIVERSAL,Shipment Departed
+SHIPUNIVERSAL,Shipment Information Received.
+SHIPUNIVERSAL,Custom Clearance(Origin)
+SHIPUNIVERSAL,IN-Transit Delhi Airport
+ARAMEX,Delay - Please Contact your Local Office
+ARAMEX,Shipment Update
+SKYNET,PROCESSED
+ARAMEX,Delay - Uncontrollable Due to Carrier
+SHIPUNIVERSAL,Shipment Received at Hub
+ATLANTIC,arrived @atlanticcourier hub
+ATLANTIC,UNDER CUSTOM PROCESS
+ATLANTIC,Expected Arrival 21012026
+ATLANTIC,Arrived Export Terminal
+ATLANTIC,Prepared Export Documents
+SKART,Shipment trip planned - Out for delivery
+SKART,Cleared from Customs 
+SKART,WhatsApp Notification Sent to Consignee
+ARAMEX,Shipment trip planned - Out for delivery
+ARAMEX,SMS Sent to Consignee
+ARAMEX,On Hold - Attempting to Contact Customer / No Answer on Phone
+ARAMEX,WhatsApp Notification Sent to Consignee
+ARAMEX,Delivery Address Corrected
+ARAMEX,On Hold - Awaiting Correct Delivery Address
+ARAMEX,On Hold - Attempting to Contact Customer / Mobile Cannot be Reached
+ARAMEX,Aramex Champion has contacted the Customer: Customer did not respond
+ARAMEX,Cleared from Customs 
+WORLDFIRST,The package is being held for pickup as the receiver requested. Pickup must be made within 5 busines
+WORLDFIRST,Weve received a request from the receiver to hold the package for pickup at a UPS location.
+WORLDFIRST,The receiver requested this package to be held for pickup at the UPS facility.
+WORLDFIRST,The receiver was not available for delivery. Well make a second attempt the next business day.
+WORLDFIRST,Import Scan
+WORLDFIRST,Duties or taxes are due on this package.
+WORLDFIRST,Import charges are due for this package. Select Pay Now (where available) or pay at delivery.
+WORLDFIRST,UPS is preparing your package for clearance. We will notify you if additional information is needed.
+WORLDFIRST,Your package is on the way
+WORLDFIRST,Your package is pending release from a Government Agency. Well notify the receiver or sender if info
+WORLDFIRST,Your package is prepared for clearance.
+WORLDFIRST,Your package has been released by the Government Agency and is on the way.
+OVERSEAS,Departed from Facility
+OVERSEAS,Import charges are due for this package. Select Pay Now (where available) or pay at delivery.
+OVERSEAS,Duties or taxes are due on this package.
+OVERSEAS,Import Scan
+OVERSEAS,Your package has cleared Customs and it is on its way.
+OVERSEAS,A Government Agency requires additional information or documents for clearance. Awaiting information from Customer.
+WORLDFIRST,"The delivery address was incorrect, but the issue has been resolved. Your delivery has been reschedu"
+WORLDFIRST,The street name is incorrect. This may delay delivery. Were attempting to update the address.
+WORLDFIRST,"Due to weather, your package is delayed by one business day."
+WORLDFIRST,Receivers customs broker has been assigned. The shipment is now released to move in transit.
+WORLDFIRST,Import C.O.D. (ICOD) charges have been paid or billed.
+WORLDFIRST,Your package has cleared customs and is on the way.
+WORLDFIRST,"Weve corrected the postal code, and the package is on its way to the updated address."
+ARAMEX,Shipment Forwarded to Beyond/Remote Area Sorting Location
+OVERSEAS,Warehouse Scan
+WORLDFIRST,The package is being held for a future delivery date. Well attempt to deliver on the date requested.
+WORLDFIRST,The delivery date has been rescheduled as the receiver requested.
+WORLDFIRST,We received a request from the receiver to reschedule the delivery.
+ATLANTIC,EXPECTED ARRIVAL 17012026
+ATLANTIC,Order information has been transmitted to DPD
+WORLDFIRST,Importers consumer or business Identification number is required for clearance. Awaiting information
+ARAMEX,Customer ID received
+ATLANTIC,SENT TO MUMBAI
+WORLDFIRST,UPS has received the information needed to submit your package for clearance.
+ARAMEX,Confiscated by Customs Authorities
+ARAMEX,Shipment Held for Customs Clearance - Awaiting Duty and Tax Payment from Customer
+WORLDFIRST,Your package has been held to verify value. Awaiting information from the sender or receiver. / Well
+WORLDFIRST,Your package has been held to verify value. Awaiting information from the sender or receiver.
+SKYNET,CUSTOMSPENDING
+SKYNET,ARRIVED
+SKYNET,INFO RECEIVED
+SHIPUNIVERSAL,Custom Cleared
+WORLDFIRST,We are experiencing transit delays. We will deliver your package as soon as possible. / Your package
+WORLDFIRST,"Your package is pending release from a Government Agency. Once they release it, your package will be"
+SKART,Shipment Forwarded to Beyond/Remote Area Sorting Location
+SKART,Forwarding Delay - Received after the carrier departure time
+SKART,On Hold - Pending Missing Documents prior to Shipping
+OVERSEAS,DELIVERED 
+OVERSEAS,Your package is prepared for clearance.
+OVERSEAS,We are experiencing transit delays. We will deliver your package as soon as possible.
+OVERSEAS,We\
+OVERSEAS,"Your package is pending release from a Government Agency. Once they release it, your package will be on its way."
+OVERSEAS,Delivery instructions have been provided by the receiver.
+OVERSEAS,The street name is incorrect. This may delay delivery. We\
+OVERSEAS,Your package has cleared customs and is on the way.
+OVERSEAS,A late flight has caused a delay. Your package is scheduled to arrive today later than the communicated delivery time.
+OVERSEAS,"Your package is pending release from a Government Agency. Once they release it, your package will be on its way. / The delivery information was updated in error. We\"
+OVERSEAS,Import C.O.D. (ICOD) charges have been paid or billed.
+ARAMEX,Shipment Ready For Customer Pickup
+ARAMEX,Delivery Scheduled
+SKYNET,INFORMATION
+ATLANTIC,SHIPMENT ON HOLD FOR CONSIGNEE QATAR ID REQUIRED
+ATLANTIC,SHIPMENT ON HOLD FOR QATAR ID 
+SKYNET,CUSTOMSCLEARED
+ATLANTIC,SHIPMENT OFFLOADED BY DELHI CUSTOM
+WORLDFIRST,The receiver was not available at the time of the final delivery attempt.
+WORLDFIRST,Scheduled for delivery today.
+WORLDFIRST,We missed you again. A final attempt will be made the next business day.
+SHIPUNIVERSAL,HAND OVER TO LASTMILE
+ATLANTIC,HANDED OVER TO AIRLINE
+ATLANTIC,ARRIVED AT EXPORT TERMINAL
+OVERSEAS,Importer\
+OVERSEAS,UPS has received the information needed to submit your package for clearance.
+ATLANTIC,UNDER CUSTOM CLEARANCE PROCESS
+ATLANTIC,Expected Arrival 15012026
+SKART,Delivery Address Corrected
+SKART,Delivery Scheduled
+ATLANTIC,Arrived Hub
+ATLANTIC,Expected Arrival 13012026
+ATLANTIC,Expected Arrival 11012026
+ARAMEX,Attempted Delivery - Customer Not Available / Delivery Rescheduled
+ARAMEX,Attempted Delivery - No One Home / Unable to Contact
+ARAMEX,Shipment on Hold
+ARAMEX,Attempted Delivery - Access Restricted / Customer Intructions Required
+ARAMEX,Held in Customs - Pending Clearance
+ATLANTIC,AWAITING CUSTOM CLEARANCE
+ATLANTIC,ARRIVAL CONFIRMATION AWAITED
+ATLANTIC,HOLD FOR REMOTE AREA
+ARAMEX,Shipment Held for Customs Clearance - Commercial Invoice Required
+ARAMEX,Consignee contacted to set delivery 
+ARAMEX,"Invalid/Missing Customer ID Number, Customer is required to enter the correct ID"
+SKART,Handed over to Carrier
+ARAMEX,Attempted Delivery - Please Contact your Local Office
+ARAMEX,Customer has contacted Aramex Champion: Call was not responded
+ATLANTIC,SHIPMENT ON HOLD FOR REMOTE AREA PIN CODE
+WORLDFIRST,Your package has cleared Customs and it is on its way.
+WORLDFIRST,Your package has been released by the government agency.
+ARAMEX,Shipment is Delivered in Letter Box
+ATLANTIC,AWAITING CURRENT STATUS 
+ATLANTIC,Parcel in transit to local UniUni warehouse for delivery
+ATLANTIC,AWAITING CUSTOM CEARANCE
+ATLANTIC,EXPECTED ARRIVAL  13012026
+SKART,Shipment Held Up At HUB ( Due to NEED MSDS & NON DG & SIGN STAMP)
+SKART,Shipment Reversed. 
+SKART,Shipment Inscanned At HUB. (Hub Name: sKart ACLC2)
+SKART,Shipment Held Up At HUB ( Due to NEED INVOICE ON SHIPMENT)
+ATLANTIC,ON HOLD
+ATLANTIC,Documentation Prepared
+SKART,Shipment Update
+SKART,Held in Customs - Pending Clearance
+SKART,Shipment Held Up At HUB ( Due to req. kyc)
+OVERSEAS,We are experiencing transit delays. We will deliver your package as soon as possible. / Your package is on the way
+ATLANTIC,OFFLOADED BY AIRLINES
+ARAMEX,Attempted Delivery - Refused / Cancelled order
+WORLDFIRST,The apartment number is either missing or incorrect. This may delay delivery. Were attempting to upd
+ARAMEX,Awaiting Clearance from Consignee/Broker to Arrange Delivery
+ARAMEX,Attempted Delivery - Consignee Rejected the Shipment / Awaiting Shipper Instructions
+OVERSEAS,The company or receiver name is incorrect. This will delay delivery. We\
+OVERSEAS,This package is being held for a future delivery date.
+OVERSEAS,Your package is on the way
+ARAMEX,Returned to Shipper
+ARAMEX,Shipment will be prepared for Customer Collection
+ATLANTIC,Waiting For Amazon Appoinment
+ATLANTIC,CURRENT STATUS ON REQUEST
+ATLANTIC,Arrived Facility
+ATLANTIC,CUSTOM CLEARED
+ATLANTIC,EXPECTED ARRIVAL 31122025
+ATLANTIC,EXPECTED ARRIVAL 29122025
+ATLANTIC,EXPECTED ARRIVAL 27122025
+ATLANTIC,Shipment Information Received
+ATLANTIC,Expected Arrival 26122025
+OVERSEAS,The package remains at the UPS Access Point™ location and is reaching the maximum days allowed to be held.
+OVERSEAS,UPS Access Point™ possession 
+OVERSEAS,Delivered to UPS Access Point™ 
+OVERSEAS,We were unable to deliver your package. It\
+OVERSEAS,"The delivery address was incorrect, but the issue has been resolved. Your delivery has been rescheduled."
+WORLDFIRST,Severe weather conditions have delayed delivery.
+WORLDFIRST,This package is being held for a future delivery date.
+WORLDFIRST,Your package arrived at Import without prior notification. UPS is working to resolve the issue. / Yo
+WORLDFIRST,The shipment description or contents do not qualify as a document under the import countrys
+WORLDFIRST,Good news! Weve received export clearance information for your package. This hold has been resolved.
+WORLDFIRST,A missing commercial invoice is causing a delay. We are working to obtain this information.
+SKART,Aramex Champion has contacted the Customer : Customer responded
+SKART,Attempted Delivery - Customer Not Available / Delivery Rescheduled
+ARAMEX,Shipment Held for Customs Clearance - Customer ID Number Or Importers Code Required
+SHIPUNIVERSAL,Shipment delay due to offload
+SKYNET,FLIGHTARRIVAL
+SKYNET,FAATDESTINATION
+ATLANTIC,CURRENT STATUS AWAITED
+ATLANTIC,Expected Arrival 19122025
+ATLANTIC,In Transit to Destination
+ATLANTIC,Info Message Sent to Recipient
+ATLANTIC,"EXPECTED CONNECTION TODAY	"
+ATLANTIC,EXPECTED ARRIVAL 18122025
+ATLANTIC,Fba
+ATLANTIC,NEED CNEE CORRECT ADDRESS & ALTERNATE CONTACT NO
+ATLANTIC,"	EXPECTED CONNECTION TODAY"
+ARAMEX,Documents Delivered to Consignee/Broker for Self Clearance & Delivery
+ARAMEX,Customs\
+ARAMEX,Held in Customs - Awaiting Customer Instructions
+ARAMEX,Held in Customs - Incomplete Information / Urgent Customer Instructions Required
+ARAMEX,Held in Customs - Urgent Customer Instructions Required
+WORLDFIRST,Weve sent the package to UPS lost and found. / The package is undeliverable and is in the process of
+WORLDFIRST,Your package cannot be delivered to a P.O. box. Were attempting to obtain an alternate delivery addr
+WORLDFIRST,The driver was unable to collect funds on the final delivery attempt. / Well contact the sender or r
+WORLDFIRST,The driver was unable to collect funds on the final delivery attempt.
+WORLDFIRST,Loaded on Delivery Vehicle
+WORLDFIRST,The driver was not able to receive payment. A final attempt will be made the next business day.
+WORLDFIRST,"We tried to deliver the package, but were unable to receive payment. A second attempt will be made t"
+WORLDFIRST,A Government Agency requires additional information or documents. Awaiting information from the cust
+WORLDFIRST,Requested delivery change cannot be completed. The package will be delivered as previously scheduled
+WORLDFIRST,Delivery to a UPS Access Point location is pending.
+WORLDFIRST,Translated documents are required for clearance. Awaiting information from the sender or recipient. 
+WORLDFIRST,"UPS initiated contact with receiver or importer for clearance information. Once received, UPS will s"
+WORLDFIRST,Translated documents are required for clearance. Awaiting information from the sender or recipient.
+SHIPUNIVERSAL,"Shipper created a label, UPS has not received the package yet."
+ARAMEX,Customs Clearance - In Progress
+ARAMEX,Customer Contact Attempts Completed - Pending Return to Shipper
+ATLANTIC,RETURN TO CANADA WAREHOUSE
+ATLANTIC,Parcel rescheduled for later delivery
+ATLANTIC,Ready for delivery
+ATLANTIC,"AWAITING CONNECTION ""	"""
+ATLANTIC,"AWAITING CONNECTION	"""""
+ATLANTIC,PART LOAD RECD
+ATLANTIC,EXPECTED ARRIVAL 23122025
+ATLANTIC,Expect 48 - 72 Hr Delay Due To New Year end Backlog
+ARAMEX,Customer has contacted Aramex Champion: Call was responded
+ARAMEX,Aramex Champion has contacted the Customer : Customer responded
+ARAMEX,Shipment Held for Customs Clearance - Pending Customs Release
+SKART,Confiscated by Customs Authorities
+SKART,There is an issue in regards of this shipment and it will not be processed further. This is a final update. Please contact your local office for further information
+SKART,On Hold - Awaiting Correct Delivery Address
+SKART,Shipment Held for Customs Clearance - Awaiting Duty and Tax Payment from Customer
+SKART,Shipment Held for Customs Clearance - Pending Customs Release
+SKART,Held in Customs - Urgent Customer Instructions Required
+ATLANTIC,NEED QATAR ID
+ATLANTIC,EXPECTED ARRIVAL 07122025
+WORLDFIRST,Package not available.
+WORLDFIRST,Your package has been delayed due to a Government Agency hold.
+WORLDFIRST,Your package is being processed for submission to the Food and Drug Administration (FDA).
+WORLDFIRST,Package is pending release from a Government Agency. Well notify the receiver or sender if informati
+WORLDFIRST,Commodity information must be validated by the sender or importer. Awaiting information from the cus
+WORLDFIRST,"UPS initiated contact with the sender to obtain clearance information. Once received, UPS will submi"
+WORLDFIRST,Well contact the sender/receiver because Commodity description information validation is required by
+BLUEDART,NATURAL DISASTER/DISTURBANCE/STRIKE
+BLUEDART,MISROUTED-DELIVERY DELAYED
+DTDC,LINEHAUL DELAYED ROAD BLOCK / TRAFFIC JAM
+BLUEDART,REDIRECTED ON SAME AWB TO SHIPPER CONTACT CUSTOMER SERVICE
+BLUEDART,"CONTENTS PROHIBITED ITEM, P/U CANCELLED"
+DELHIVERY,Under security investigation
+DELHIVERY,Reject - Outer packaging damaged
+DELHIVERY,MPS shipment found
+BLUEDART,UD SHIPMENT RECEIVED FOR FURTHER PROCESS
+DELHIVERY,Auto Scheduled
+BLUEDART,UNDELIVERED RETURN/REDIRECT INITIATED
+DTDC,NON SERVICEABLE LOCATION
+XPRESSBEES,Shop Closed
+XPRESSBEES,Shipment handed over to other service provider
+EKART,PICKUP_Cancelled
+XPRESSBEES,Return To Origin
+XPRESSBEES,RTO Undelivered
+BLUEDART,SHIPMENT MISROUTED-WILL IMPACT DELIVERY
+DTDC,DISTURBED/ PROHIBITED AREA
+DTDC,DAMAGED
+BLUEDART,FORCEFULLY RETURN BY CNEE QUALITY ISSUE
+DTDC,FLIGHT CANCELLED
+DTDC,Shipment Under Investigation
+DTDC,Revoke request as per client instruction.
+DTDC,CONTENT WHICH CAN NOT TRAVEL ON AIR
+DELHIVERY,Parcel status reverted
+DELHIVERY,Payment Issue ( Amount Dispute/ Cash/ Cheque not ready 
+ARAMEX,On hold - High value shipment - Export documents from customer are required
+SHIPUNIVERSAL,"Shipper created a label, UPS has not received the package yet. "
+ATLANTIC,Awaiting Customs Clearance
+ATLANTIC,Flight Arrival
+ATLANTIC,Expected Flight Arrival
+ATLANTIC,Sorted to Destination
+ATLANTIC,Pickup Arranged
+ATLANTIC,Shipment Finalised
+ATLANTIC,Expected Arrival 05022026
+ARAMEX,Unable to Forward - Please Contact your Local Office
+SHIPUNIVERSAL,
+WORLDFIRST,Weve missed the scheduled transfer time. This may cause a delay.
+ATLANTIC,Handover to delivery vendor
+ATLANTIC,Expected Arrival 03022026
+ARAMEX,Attempted Delivery - No One Home / Delivery Rescheduled for Next Business Day
+ARAMEX,On Hold - Unable to Contact Customer / Awaiting Correct Phone Number 
+ARAMEX,Held in Customs - Unacceptable  Commodities
+ARAMEX,"Consignee contacted to set delivery "
+ARAMEX,On Hold - Pending Data from shipper
+ARAMEX,Attempted Delivery - Incorrect or Incomplete Address / Delivery Rescheduled
+ATLANTIC,Expected Arrival 04022026
+WORLDFIRST,We are trying to get the security access our driver needs for this delivery.
+ARAMEX,Forwarded to Aramex office
+ARAMEX,Delay - Delivery Rescheduled
+WORLDFIRST,Significant weather events across the globe are impacting the UPS network. Although your location ma
+WORLDFIRST,A mechanical failure has caused a delay. We will update the delivery date as soon as possible.
+WORLDFIRST,Your delivery will be rescheduled due to a missed aircraft transfer. We will update the delivery dat
+ATLANTIC,EXPECTED ARRIVAL 02022026
+WORLDFIRST,Your package was processed at our facility.
+ARAMEX,Delay - Shipment is Overweight/Oversize - Awaiting Shipper Instructions
+ATLANTIC,Awaiting Pickup By Consignee
+ATLANTIC,Onforwarded to Alternate Delivery Point
+ATLANTIC,Not Delivered - Other Reasons
+ATLANTIC,Released From Customs
+ATLANTIC,Expected Arrival 31012026
+WORLDFIRST,A contact number for the shipper or receiver is needed. Awaiting information from the customer. / We
+WORLDFIRST,A contact number for the shipper or receiver is needed. Awaiting information from the customer.
+WORLDFIRST,We are working on resolving clearance issues raised by a Government Agency. / Your package is on the
+WORLDFIRST,We are working on resolving clearance issues raised by a Government Agency.
+ARAMEX,Customer contact Attempts Completed
+ARAMEX,Attempted Delivery - Customer Address Changed / Delivery Rescheduled
+WORLDFIRST,The importer has not assigned a broker. This may delay delivery. / Well contact the sender or receiv
+WORLDFIRST,Customs requires additional information or documents for clearance. Awaiting information from the cu
+SHIPUNIVERSAL,DELAY DUE TO WEATHER CONDITION 
+WORLDFIRST,Delivery will be delayed by one business day.
+WORLDFIRST,The street number is incorrect. This may delay delivery. Were attempting to update the address. / We
+WORLDFIRST,The street number is incorrect. This may delay delivery. Were attempting to update the address.
+SHIPUNIVERSAL,DELIVERED 
+SHIPUNIVERSAL,Out For Delivery Today
+SHIPUNIVERSAL,Loaded on Delivery Vehicle 
+SHIPUNIVERSAL,Departed from Facility
+SHIPUNIVERSAL,Pickup Scan 
+ARAMEX,Held in US Customs - FDA Certificate Related Issues
+ARAMEX,There is an issue in regards of this shipment and it will not be processed further. This is a final update. Please contact your local office for further information
+ATLANTIC,EXPECTED ARRIVAL 25012026
+ATLANTIC,Parcel received by UniUni
+OVERSEAS,
+ATLANTIC,EXPECTED ARRIVAL 01022026
+ATLANTIC,ON TRACER
+ARAMEX,Held in Customs - Requires Governmental Approvals
+SHIPUNIVERSAL,"We tried to deliver to the business, but it was closed. A second attempt will be made the next business day."
+ATLANTIC,"EXPECTED ARRIVAL 25012026	"
+ATLANTIC,"HANDED OVER TO AIRLINE	"
+ATLANTIC,"ARRIVED AT EXPORT TERMINAL	"
+ATLANTIC,"PREPARED EXPORT DOCUMENTS	"
+ATLANTIC,Console Departed from Facility (Blind Scan)
+ATLANTIC,Console Arrived at Facility (Blind Scan)
+ATLANTIC,NEED AMAZON APPOINMENT LETTER
+ATLANTIC,UNDER INVESTIGATION
+ATLANTIC,NEED AMAZON APPOINMENT LETTER 
+WORLDFIRST,Were sorry this package has experienced a sortation delay. The package has been rerouted to the c
+WORLDFIRST,The driver was unable to collect funds on the final delivery attempt. / The package will be returned
+XPRESSBEES,Pickup not attempted
+DTDC,SHIPMENT RECEIVED AFTER CUT-OFF TIME AT DESTINATION
+DTDC,Weekly off
+DTDC,STOCK SCAN
+DTDC,DELAYED DUE TO NO ENTRY
+SHADOW_FAX,Reattempt Delivery
+BLUEDART,"NETWORK ISSUES, WILL IMPACT DELIVERY"
+DTDC,RTO Mis Route
+DTDC,RTO Not Delivered
+DTDC,RECEIVED AFTER CUT-OFF
+DTDC,RTO Received At Delivery Centre
+DTDC,DELIVERY DELAYED DUE HEAVY RAIN / FLOOD / HANDS OF NATURE
+DTDC,OFFLOAD AT ORIGIN
+DTDC,Waiting For RTO Approval From Origin
+DTDC,Hub X-ray Reject - Due to security reason
+DTDC,BOOKING NOT UPDATED
+DTDC,OFF-LOADED BY AIRLINES (CENTRAL TEAM ACCESS)
+DTDC,Unable to Deliver - Heavy Rain
+DTDC,SHIPMENT RECEIVED DAMAGE
+DTDC,LINEHAUL DELAYED ARRIVAL DUE TO VEHICLE MET WITH AN ACCIDENT
+DTDC,VEHICLE ARRIVED LATE
+DTDC,SHIPMENT ON HOLD DUE TO CONSIGNEE REQUEST
+DTDC,MISSED CONNECTION
+DTDC,RESTRICTED DELIVERY HOURS
+DTDC,SHIPMENT HELD FOR ODA DELIVERY
+DTDC,VEHICLE HELD IN CHECK POST FOR INSPECTION
+DTDC,LINEHAUL  VEHICLE DELAYED DEPARTURE
+DTDC,Unable to Deliver - Limited Resources
+DTDC,ADDRESS INCOMPLETE

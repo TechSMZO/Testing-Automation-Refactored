@@ -1,0 +1,158 @@
+courier_slug,status
+BLUEDART,DELIVERY  SCHEDULED FOR NEXT WORKING DAY
+BLUEDART,CONTACT CUSTOMER SERVICE
+AMAZON,RecipientRequestedAlternateDeliveryTiming
+BLUEDART,PAPER WORK INSCAN
+BLUEDART,SHIPMENT REDIRECTED ON SAME AWB
+BLUEDART,CNEE REFUSED ID/OTP NOT SHARED-INCORRECT
+BLUEDART,"WRONG PINCODE, WILL IMPACT DELIVERY"
+BLUEDART,ON HOLD AS REQUESTED BY SHIPPER
+BLUEDART,NEED DEPARTMENT NAME/EXTENTION NUMBER
+DELHIVERY,Vehicle Departed
+DELHIVERY,Service Disruption
+DELHIVERY,Vehicle delayed - Controllable
+DELHIVERY,weight captured
+BLUEDART,Order Cancelled by consignee ? OTP Not Shared
+BLUEDART,"NETWORK DELAY, WILL IMPACT TIMELY DELIVERY"
+BLUEDART,CLUBBED CANVAS BAG SCAN
+BLUEDART,DELAY CAUSED BEYOND CONTROL
+EKARTB2B,UG
+EKARTB2B,LG S
+EKARTB2B,DPH
+EKARTB2B,CP
+BLUEDART,"P/U UNSUCCESSFUL, INCOMPLETE PAPERWORK"
+BLUEDART,PICKUP CANCELLED; QUALITY DISPUTE
+BLUEDART,LOAD ON HOLD;SPACE CONSTRAINT-COMML FLT
+BLUEDART,SHIPPER INSTRUCTED TO RTO THE SHIPMENT
+BLUEDART,PROHIBITED AREA-ENTRY RESTRICTED FOR DELIVERY
+BLUEDART,C\
+BLUEDART,LOAD ON HOLD;SPACE CONSTRAINT IN NET VEH
+BLUEDART,AUTO PICKUP REGISTERED
+BLUEDART,PICKUP NOT READY. SENT TO STORE
+DTDC,Pickup Reassigned
+BLUEDART,NETWORK ISSUES
+DELHIVERY,Pincode updated by Addfix
+BLUEDART,"NETWORK ISSUE, WILL IMPACT DELIVERY"
+BLUEDART,PICKUP CANCELLED BY CALL
+BLUEDART,"P/U ON NEXT BUSINESS DAY, Partial pickup handover"
+BLUEDART,"PROCESS COMPLETED, READY TO DESPATCH"
+SHADOW_FAX,Cid
+BLUEDART,OFFICE CLOSED; UNABLE TO DELIVER
+BLUEDART,DELIVERY SCHEDULED THROUGH APPOINTMENT
+DTDC,Return as per client instruction.
+DTDC,Set RTO initiated
+BLUEDART,DUPLICATE TOKEN CLOSED
+BLUEDART,PICKUP RE-SCHEDULED BY CALL
+BLUEDART,SHPT RCVD AT DESTN LOC FOR DLVRY ATTEMPT
+BLUEDART,DELIVERY ON NEXT BUSINESS DAY
+BLUEDART,PICKUP CANCELLED BY CUSTOMER
+BLUEDART,"P/U ON NEXT BUSINESS DAY, NO SHIPMENT"
+BLUEDART,NATURAL DISASTER/DISTURBANCE/STRIKE
+EKART,vendor_received
+EKART,rto_undelivered_attempted
+BLUEDART,"PICKUP CLOSED, SENT ON ANOTHER AWB"
+RAJDHANI,
+BLUEDART,"P/U UNSUCCESSFUL, CUSTOMER UNAVAILABLE"
+BLUEDART,"CONTENTS PROHIBITED ITEM, P/U CANCELLED"
+BLUEDART,CONSIGNEE HAS GIVEN BDE HAL ADDRESS
+DELHIVERY,Bad/Incomplete Address
+DELHIVERY,Re-attempt at RCN 
+DELHIVERY,Package details changed by Delhivery
+DELHIVERY,Air Offload
+DELHIVERY,Package Missing in Audit
+DELHIVERY,Shipper unavailable
+DELHIVERY,Shipper has re-located
+DELHIVERY,Consignee verified cancellation
+DELHIVERY,Package found in Audit
+DELHIVERY,Agent remark incorrect
+DELHIVERY,Short Bag
+DELHIVERY,Regulatory paperwork insufficient
+DELHIVERY,Damaged shipment to be attempted 
+DELHIVERY,Received At Delhivery Hub
+DELHIVERY,Content mismatch/missing - package tampered
+DELHIVERY,Status Changed
+DELHIVERY,Outbound against permanent connection [custody scan]
+DELHIVERY,Reject - Brand box/seal damaged
+DELHIVERY,Reject but package intact
+DELHIVERY,Agent remark verified
+EKART,NotPicked_Attempted_RequestForReschedule
+DELHIVERY,Inbound against permanent connection [custody scan]
+DELHIVERY,Transit Delay 
+DELHIVERY,Package details changed by shipper
+DELHIVERY,Removed From Dispatch
+DELHIVERY,Vehicle Accident 
+DELHIVERY,Under security investigation
+DELHIVERY,Shipment seized by consignee
+DELHIVERY,Doubtful Order
+DELHIVERY,Consignee unavailable
+DELHIVERY,Short shipment
+DELHIVERY,Seller/CWH permanently closed
+DELHIVERY,Reset to Pending
+DELHIVERY,Reject - Outer packaging damaged
+BLUEDART,OUT FOR DELIVERY - DETAILS AWAITED AWAITED
+DELHIVERY,Package marked safe for movement by Air
+DELHIVERY,MPS shipment found
+DELHIVERY,Hold as per client instruction
+DELHIVERY,Scan location auto-updated to co-located center
+DELHIVERY,Re-Scheduled as per client\
+DELHIVERY,Unlock - Wrong QR Code
+DELHIVERY,Reject - Missing client label or invoice
+DELHIVERY,On hold. Ewaybill missing/invalid
+DELHIVERY,Reject - RID not found
+BLUEDART,UD SHIPMENT RECEIVED FOR FURTHER PROCESS
+DELHIVERY,Zero liability shipment 
+DELHIVERY,RTO due to Seller Dependency 
+BLUEDART,CONSIGNEE REFUSED TO PAY NECESSARY CHARGES
+DELHIVERY,Seller cancelled the order
+BLUEDART,"PICKUP NOT ATTEMPTED, ADDRESS INCOMPLETE"
+DELHIVERY,Ewaybill updated
+DELHIVERY,Canceled as per client\
+DELHIVERY,Pickup Dispute - PNPR Initiated
+DELHIVERY,Damaged/Used Product
+DELHIVERY,Auto Scheduled
+DELHIVERY,"Address on package is different from  HQ address"""""
+BLUEDART,UNDELIVERED RETURN/REDIRECT INITIATED
+DTDC,NON SERVICEABLE LOCATION
+DTDC,Pickup Cancelled
+BLUEDART,CONSIGNEE ADD IS EDUCATIONAL INSTITUTION
+XPRESSBEES,Pickup not ready with vendor
+XPRESSBEES,Concern person is not available
+XPRESSBEES,Shop Closed
+XPRESSBEES,Shipment handed over to other service provider
+XPRESSBEES,Order got cancelled
+BLUEDART,PICKUP HANDLED BY ANOTHER COURIER
+XPRESSBEES,Customer not available x Security/Gate restriction and customer not reachable. Entry not permitted in office/building
+EKART,cancelled
+EKART,PICKUP_Cancelled
+EKART,notpicked_notattempted_heavyload
+EKART,notpicked_attempted_customernoresponse
+BLUEDART,P/U RESCHEDULED : CAPACITY CONSTRAINT
+BLUEDART,REDIRECTED ON SAME AWB TO SHIPPER CONTACT CUSTOMER SERVICE
+BLUEDART,RETURN TO SHIPPER
+XPRESSBEES,Self Collect
+XPRESSBEES,Customer not available x Security/Gate restriction and customer not reachable. Entry not permitted in office/building x Security/Gate restriction and customer not reachable. Entry not permitted in office/building
+XPRESSBEES,RTO Out For Delivery
+WORLDFIRST,Import Scan
+XPRESSBEES,Customer not available x Office or Residence closed x Office or Residence closed
+XPRESSBEES,Return To Origin
+XPRESSBEESB2B,Unable Attempt Delivery
+XPRESSBEES,RTO Undelivered
+XPRESSBEES,Lost
+XPRESSBEES,NonDeliveredDispute
+BLUEDART,SHIPMENT MISROUTED-WILL IMPACT DELIVERY
+XPRESSBEES,DeliveredDispute
+DTDC,DISTURBED/ PROHIBITED AREA
+BLUEDART,"P/U UNSUCCESSFUL, HOLIDAY-PREMISE CLOSED"
+MOVINB2B,OUTSCANNED_DESTINATION_BRANCH
+MOVINB2B,ATTEMPTED_DELIVERY
+DTDC,DAMAGED
+BLUEDART,FORCEFULLY RETURN BY CNEE QUALITY ISSUE
+DTDC,FLIGHT CANCELLED
+SKYNET,INFORMATION
+SKYNET,CUSTOMSCLEARED
+SKYNET,CUSTOMSPENDING
+SKYNET,ARRIVED
+SKYNET,INFO RECEIVED
+DTDC,Shipment Under Investigation
+DTDC,Revoke request as per client instruction.
+BLUEDART,RTO at Origin outsacan for Delivery

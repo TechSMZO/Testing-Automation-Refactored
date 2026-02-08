@@ -2,8 +2,8 @@
 
 cd "C:/Users/Lenovo/Cursor Workspace/Selenium-UI-Automation-ajSM" || exit 1
 
-INPUT="log_to_csv_test.txt"
-OUTPUT="log_to_csv_test.csv"
+INPUT="gmail-api-2026-02-05.log"
+OUTPUT="log_to_csv_test3.csv"
 
 {
   echo "courier_slug,status"

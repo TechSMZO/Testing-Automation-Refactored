@@ -18,6 +18,7 @@ import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxOptions;
@@ -43,6 +44,7 @@ public class LoginTest {
     
     public LoginTest(String browser) {
     	 this.browser = "chrome";
+         
 	}
 
 
@@ -55,12 +57,21 @@ public class LoginTest {
 //    		browser = "chrome";
 //    	}
 //    	
+ // ✅ CHANGED: Initialize extent FIRST, before driver setup
+ extent = ExtentManager.getInstance();
+
     	try{
     		System.out.println(">>> Browser Param: " + browser);
         switch (browser.toLowerCase()) {
             case "chrome":
-            	WebDriverManager.chromedriver().setup(); // Include this if you're using WebDriverManager
-                this.driver = new ChromeDriver();        // ✅ Assign to the class variable
+            	ChromeOptions options = new ChromeOptions();
+// options.addArguments("--headless=new");
+// options.addArguments("--window-size=1920,1080");
+// options.addArguments("--disable-gpu");
+// options.addArguments("--no-sandbox");
+// options.addArguments("--disable-dev-shm-usage");
+            WebDriverManager.chromedriver().setup(); // Include this if you're using WebDriverManager
+                this.driver = new ChromeDriver(options);        // ✅ Assign to the class variable
                 this.driver.manage().window().maximize();
                 break;
             case "firefox":
@@ -80,7 +91,6 @@ public class LoginTest {
                 throw new IllegalArgumentException("Unsupported browser: " + browser);
         }
         
-        extent = ExtentManager.getInstance();
     } catch (Exception e) {
         System.out.println("🔥 Failed to start browser: " + browser + " — " + e.getMessage());
         Assert.fail("Driver setup failed for browser: " + browser, e);
@@ -98,7 +108,7 @@ public class LoginTest {
     
     
 
-    @Test(priority = 1)
+    @Test(groups = {"smoke"}, priority = 1)
     public void loginDemoTest() {
     	
     	
