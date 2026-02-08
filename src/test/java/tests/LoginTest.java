@@ -64,6 +64,7 @@ public class LoginTest {
                 ChromeOptions options = new ChromeOptions();
 
 // REQUIRED for GitHub Actions
+options.setBinary("/usr/bin/google-chrome");
 options.addArguments("--headless=new");
 options.addArguments("--no-sandbox");
 options.addArguments("--disable-dev-shm-usage");
@@ -93,10 +94,10 @@ options.addArguments("--remote-allow-origins=*");
         }
         
         extent = ExtentManager.getInstance();
-    } catch (Exception e) {
-        System.out.println("🔥 Failed to start browser: " + browser + " — " + e.getMessage());
-        Assert.fail("Driver setup failed for browser: " + browser, e);
-    }	
+    }catch (Exception e) {
+    e.printStackTrace();
+    throw e;
+}
     }
 
 
