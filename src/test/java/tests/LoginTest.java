@@ -42,9 +42,9 @@ public class LoginTest {
 
     
     
-    public LoginTest(String browser) {
-    	 this.browser = "chrome";
-	}
+ //    public LoginTest(String browser) {
+ //    	 this.browser = "chrome";
+	// }
 
 
   
@@ -55,6 +55,8 @@ public class LoginTest {
 //    	if(this.browser == null) {
 //    		browser = "chrome";
 //    	}
+		    browser = "chrome"; // hard-set for CI smoke
+    System.out.println(">>> Browser Param: " + browser);
 //    	
     	try{
     		System.out.println(">>> Browser Param: " + browser);
