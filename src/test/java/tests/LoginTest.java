@@ -1,17 +1,9 @@
 // Placeholder for LoginTest.java content
 package tests;
 
-import java.io.FileOutputStream;
-import java.text.SimpleDateFormat;
-import java.time.Duration;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Set;
 
-import org.apache.poi.xssf.usermodel.XSSFRow;
-import org.apache.poi.xssf.usermodel.XSSFSheet;
-import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import java.time.Duration;
+import java.util.Set;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.TimeoutException;
@@ -37,13 +29,13 @@ import utilities.ExtentManager;
 public class LoginTest {
     WebDriver driver;
     ExtentReports extent;
-    ExtentTest test;
 	String browser;
 
     
     
     public LoginTest(String browser) {
     	 this.browser = "chrome";
+         
 	}
 
 
@@ -51,34 +43,25 @@ public class LoginTest {
 
     @BeforeClass
     public void setUp() {
-		  System.out.println("🚨🚨 RUNNING UPDATED CI CODE - " + System.currentTimeMillis());
     	
 //    	if(this.browser == null) {
 //    		browser = "chrome";
 //    	}
-		    browser = "chrome"; // hard-set for CI smoke
-    System.out.println(">>> Browser Param: " + browser);
 //    	
+ // ✅ CHANGED: Initialize extent FIRST, before driver setup
+ extent = ExtentManager.getInstance();
+
     	try{
     		System.out.println(">>> Browser Param: " + browser);
         switch (browser.toLowerCase()) {
             case "chrome":
-				System.out.println("🚨 ABOUT TO CREATE ChromeDriver WITH OPTIONS");
-// System.out.println("🚨 OPTIONS = " + options.asMap());
-
-            	WebDriverManager.chromedriver().setup(); // Include this if you're using WebDriverManager
-                ChromeOptions options = new ChromeOptions();
-
-// REQUIRED for GitHub Actions
-options.setBinary("/usr/bin/google-chrome");
-options.addArguments("--headless=new");
-options.addArguments("--no-sandbox");
-options.addArguments("--disable-dev-shm-usage");
-options.addArguments("--window-size=1920,1080");
-options.addArguments("--disable-gpu");
-
-// Optional but safe
-options.addArguments("--remote-allow-origins=*");
+            	ChromeOptions options = new ChromeOptions();
+// options.addArguments("--headless=new");
+// options.addArguments("--window-size=1920,1080");
+// options.addArguments("--disable-gpu");
+// options.addArguments("--no-sandbox");
+// options.addArguments("--disable-dev-shm-usage");
+            WebDriverManager.chromedriver().setup(); // Include this if you're using WebDriverManager
                 this.driver = new ChromeDriver(options);        // ✅ Assign to the class variable
                 this.driver.manage().window().maximize();
                 break;
@@ -99,11 +82,10 @@ options.addArguments("--remote-allow-origins=*");
                 throw new IllegalArgumentException("Unsupported browser: " + browser);
         }
         
-        extent = ExtentManager.getInstance();
-    }catch (Exception e) {
-    e.printStackTrace();
-    throw e;
-}
+    } catch (Exception e) {
+        System.out.println("🔥 Failed to start browser: " + browser + " — " + e.getMessage());
+        Assert.fail("Driver setup failed for browser: " + browser, e);
+    }	
     }
 
 
@@ -117,7 +99,7 @@ options.addArguments("--remote-allow-origins=*");
     
     
 
-    @Test(priority = 1)
+    @Test(groups = {"smoke"}, priority = 1)
     public void loginDemoTest() {
     	
     	
@@ -195,13 +177,6 @@ options.addArguments("--remote-allow-origins=*");
     }
     
     
-	    
-	    
-	    
-	    
-	    
-	    
-	    
        
     
 //    @Test(priority = 2)
@@ -409,292 +384,6 @@ options.addArguments("--remote-allow-origins=*");
 
     
     
-    
-    
-    
-    
-    
-    
-    
-    
-    
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-
-    
-//  @Test
-  public void shipwayAutomation() {
-	  
-	  ExtentTest test = extent.createTest("Login Shipway Panel Test - " + browser).assignCategory(browser);
-	  
-	  
-	  
-
-	  //Login to shipway panel
-	    try {
-	        driver.get("https://app.shipway.com/merchant.php?dispatch=auth.login_form&return_url=merchant.php");
-	        test.pass("Opened Shipway Login Page");
-	        test.addScreenCaptureFromPath(ExtentManager.captureScreenshot(driver, "shipway_login_page"));
-
-	        if (!driver.getCurrentUrl().contains("login")) {
-	            test.fail("Login page not loaded correctly on " + browser);
-	            Assert.fail("Login page failed to load.");
-	        }
-
-	        
-	        scrollToElementAndFill("username", "munish@apporio.com");
-	        test.pass("Entered Username");
-	        scrollToElementAndFill("password", "Apporio@6070");
-	        test.pass("Entered Password");
-//	        scrollToElementAndClick(By.cssSelector("input.btn.btn-primary-signin[type='submit']"));
-	        driver.findElement(By.name("dispatch[auth.login]")).click();
-
-	        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(15));
-	        wait.until(ExpectedConditions.or(
-	            ExpectedConditions.urlContains("/merchant.php"),
-	            ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[contains(text(),'Invalid')]")),
-	            ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[contains(text(),'not registered')]"))
-	        ));
-
-	        String currentUrl = driver.getCurrentUrl();
-	        if (currentUrl.contains("merchant.php") && driver.getTitle().toLowerCase().contains("administration")) {
-	            test.pass("Login successful - Dashboard loaded");
-	            test.addScreenCaptureFromPath(ExtentManager.captureScreenshot(driver, "login_success_shipway"));
-	        } else {
-	            test.fail("Login failed - Incorrect credentials or error")
-	                .addScreenCaptureFromPath(ExtentManager.captureScreenshot(driver, "login_failed_shipway"));
-	            Assert.fail("Shipway Login Failed");
-	        }
-
-	    } catch (TimeoutException e) {
-	        test.fail("Timeout waiting for login to complete")
-	            .addScreenCaptureFromPath(ExtentManager.captureScreenshot(driver, "timeout_login_shipway"));
-	        Assert.fail("Timeout during login: " + e.getMessage());
-	    } catch (Exception e) {
-	        test.fail("Unexpected error: " + e.getMessage())
-	            .addScreenCaptureFromPath(ExtentManager.captureScreenshot(driver, "error_login_shipway"));
-	        Assert.fail("Unexpected login failure");
-	    }
-	    
-	    
-	    
-//	    Navigating to warehouses and editing them 
-	    
-	    
-	    driver.get("https://app.shipway.com/merchant.php?dispatch=companies.warehouse&company_id=32813&items_per_page=100&");	    
-//	    try {
-//	        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(15));
-//
-//	        // Wait and click on Settings
-//	        By settingsLink = By.xpath("//a[contains(@href, 'merchant.php?dispatch=settings')]");
-//	        wait.until(ExpectedConditions.elementToBeClickable(settingsLink));
-//	        scrollToElementAndClick(settingsLink);
-//	        test.pass("Clicked on 'Settings'");
-////	        driver.get("https://app.shipway.com/merchant.php?dispatch=companies.warehouse&company_id=32813&items_per_page=100&page=4");
-//
-//	        // Wait and click on Manage Warehouse
-//	        By warehouseLink = By.xpath("//a[contains(@href,'dispatch=companies.warehouse') and contains(text(),'Manage Warehouse')]");
-//	        wait.until(ExpectedConditions.elementToBeClickable(warehouseLink));
-//	        scrollToElementAndClick(warehouseLink);
-//	        test.pass("Clicked on 'Manage Warehouse' successfully");
-//	        test.addScreenCaptureFromPath(ExtentManager.captureScreenshot(driver, "manage_warehouse_page"));
-//
-//	    } catch (Exception e) {
-//	        test.fail("Failed during navigation to Manage Warehouse: " + e.getMessage());
-//	        e.printStackTrace();
-//	        try {
-//	            test.addScreenCaptureFromPath(ExtentManager.captureScreenshot(driver, "error_manage_warehouse_navigation"));
-//	        } catch (Exception ignored) {}
-//	        Assert.fail("Navigation to Manage Warehouse failed");
-//	    }
-
-	    editAllWarehousesAndLog(test);
-	    
-  }
-  
-  
-// Edit 10 warehouse rows on each page and update contact info sequentially
-  public void editAllWarehousesAndLog(ExtentTest test) {
-      try {
-          WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(15));
-          wait.until(ExpectedConditions.titleContains("Warehouse"));
-          List<String> updatedWarehouseIds = new ArrayList<>();
-
-          try {
-              ExtentManager.wait(2);
-//              int totalPages = 571;
-              int updated = 0;
-
-              for (int page = 54; page >= 1; page--) {
-              	
-              	System.out.println("\n\n\n");
-              	System.out.println("----------------------------------------------------------------------------------------------------------");
-              	System.out.println("\n\n\n");
-              	System.out.println("Entered page loop: Page " + page);
-                  test.info("Page " + (page) + " processed, capturing screenshot...");
-                  test.addScreenCaptureFromPath(
-                      ExtentManager.captureScreenshot(driver, "Page_" + page + "_Updated")
-                  );
-                  
-
-                  wait.until(ExpectedConditions.presenceOfAllElementsLocatedBy(
-                      By.xpath("//table[contains(@class, 'table-middle')]//tbody//tr")
-                  ));
-
-                 
-                  for (int i = 0; i < 100; i++) {
-                      boolean success = false;
-                      int retryCount = 0;
-                      String targetUrl = "https://app.shipway.com/merchant.php?dispatch=companies.warehouse&company_id=32813&items_per_page=100&page=" + page;
-                      driver.get(targetUrl);
-
-                      wait.until(ExpectedConditions.titleContains("Warehouse"));
-                      
-
-                      while (!success && retryCount < 3) {
-                          try {
-                              wait.until(ExpectedConditions.presenceOfAllElementsLocatedBy(
-                                  By.xpath("//table[contains(@class, 'table-middle')]//tbody//tr")
-                              ));
-                              List<WebElement> freshRows = driver.findElements(
-                                  By.xpath("//table[contains(@class, 'table-middle')]//tbody//tr")
-                              );
-                              if (i >= freshRows.size()) break;
-
-                              WebElement row = freshRows.get(i);
-
-                              String warehouseId = row.findElement(By.xpath("./td[1]")).getText().trim();
-//                              System.out.println("Page :- "+page+"   Warehouse :-  " + i);
-                              
-                           // Extract email and phone from Contact Details (5th column)
-                              String emailInRow = "";
-                              String phoneInRow = "";
-
-                              try {
-                                  emailInRow = row.findElement(By.xpath("./td[5]//img[contains(@src,'emailIcon')]/following-sibling::span")).getText().trim();
-//                                  System.out.println(emailInRow);
-                                  phoneInRow = row.findElement(By.xpath("./td[5]//img[contains(@src,'callIcon')]/following-sibling::span")).getText().replaceAll("[^0-9]", "");
-//                                  System.out.println(phoneInRow);
-                              } catch (Exception eExtract) {
-//                                  System.out.println("Failed to extract email/phone for warehouse ID: " + warehouseId + " - " + eExtract.getMessage());
-                              }
-
-                           // Check if already updated
-//                              System.out.println(emailInRow.equalsIgnoreCase("rajesh@shipmozo.com") && phoneInRow.equals("918750710656"));
-                              if (emailInRow.equalsIgnoreCase("rajesh@shipmozo.com") && phoneInRow.equals("918750710656")) {
-//                                  System.out.println("Warehouse ID " + warehouseId + " already updated. Skipping...");
-                                  retryCount++;
-                                  continue; // skip to next row
-                              }
-                              
-                              List<WebElement> editBtns = row.findElements(By.xpath(".//a[contains(@href, 'updatewarehouse')]"));
-                              if (editBtns.isEmpty()) {
-                                  System.out.println("Edit button not found for warehouse row index: " + i);
-                                  continue; // skip to next row
-                              }
-                              WebElement editBtn = editBtns.get(0);
-
-                              ((JavascriptExecutor) driver).executeScript(
-                                  "arguments[0].scrollIntoView({block: 'center'});", editBtn);
-                              ExtentManager.wait(1);
-                              ((JavascriptExecutor) driver).executeScript("arguments[0].click();", editBtn);
-
-                              wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("email")));
-
-                              scrollToElementAndFill("contact_person_name", "Rajesh Kumar");
-                              scrollToElementAndFill("company", "Shipmozo");
-                              scrollToElementAndFill("email", "rajesh@shipmozo.com");
-                              scrollToElementAndFill("jquery-intl-phone", "8750710656");
-
-                              scrollToElementAndClick(By.xpath("//button[contains(text(),'Save')]"));
-
-                              wait.until(ExpectedConditions.urlContains("dispatch=companies.warehouse"));
-                              updatedWarehouseIds.add(warehouseId);
-                              updated++;
-                              test.pass("Updated warehouse ID: " + warehouseId);
-                          	System.out.println("\n\n");
-                              System.out.println("Page :- "+page+"   Warehouse :-  " + i+"  &  Updated warehouse ID: " + warehouseId);
-                              System.out.println("Total warehouse updated till now - " + updated);
-                              success = true;
-                          } catch (Exception retryEx) {
-                              retryEx.printStackTrace();
-                              retryCount++;
-                              ExtentManager.wait(2);
-                              if (retryCount == 3) {
-                                  test.warning("Row " + (i + 1) + " failed after 3 attempts: " + retryEx.getMessage());
-                              }
-                          }
-                      }
-                  }
-                  
-                  
-                
-              }
-
-              try {
-                  XSSFWorkbook workbook = new XSSFWorkbook();
-                  XSSFSheet sheet = workbook.createSheet("Updated Warehouses");
-                  for (int i = 0; i < updatedWarehouseIds.size(); i++) {
-                      XSSFRow row = sheet.createRow(i);
-                      row.createCell(0).setCellValue(updatedWarehouseIds.get(i));
-                  }
-                  String timestamp = new SimpleDateFormat("yyyyMMdd_HHmm").format(new Date());
-                  String filename = "updated_warehouses_" + timestamp + ".xlsx";
-                  FileOutputStream out = new FileOutputStream(filename);                    
-                  workbook.write(out);
-                  out.close();
-                  workbook.close();
-                  test.pass("Warehouse updates logged to Excel.");
-
-              } catch (Exception excelEx) {
-                  excelEx.printStackTrace();
-                  test.fail("Excel write failed: " + excelEx.getMessage());
-              }
-
-          } catch (Exception e) {
-              e.printStackTrace();
-              test.fail(" Script failed: " + e.getMessage());
-          }
-      } catch (Exception e) {
-          e.printStackTrace();
-      }
-  }
-
-
-  
-  
-  
-  
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-
     @AfterClass
     public void tearDown() {
         extent.flush();

@@ -6,7 +6,7 @@ import org.testng.xml.XmlSuite;
 import org.testng.xml.XmlClass;
 import org.testng.xml.XmlTest;
 
-import java.util.*;
+import java.util.Collections;
 
 public class TestSuiteRunner {
 	
