@@ -8,6 +8,7 @@ import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.Dimension;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.edge.EdgeDriver;
@@ -39,7 +40,7 @@ public class LoginTest {
         // if(this.browser == null) {
         // browser = "chrome";
         // }
-        
+
         // ✅ CHANGED: Initialize extent FIRST, before driver setup
         extent = ExtentManager.getInstance();
 
@@ -55,21 +56,21 @@ public class LoginTest {
                     options.addArguments("--disable-dev-shm-usage");
                     WebDriverManager.chromedriver().setup(); // Include this if you're using WebDriverManager
                     this.driver = new ChromeDriver(options); // ✅ Assign to the class variable
-                    this.driver.manage().window().maximize();
-                    break;
+                this.driver.manage().window().setSize(new Dimension(1366, 768));
+                break;
                 case "firefox":
                     WebDriverManager.firefoxdriver().setup();
                     FirefoxOptions options2 = new FirefoxOptions();
                     options2.addArguments("--no-sandbox");
                     options2.addArguments("--disable-dev-shm-usage");
                     driver = new FirefoxDriver(options2);
-                    driver.manage().window().maximize();
-                    break;
+                driver.manage().window().setSize(new Dimension(1366, 768));
+                break;
                 case "edge":
                     WebDriverManager.edgedriver().setup();
                     driver = new EdgeDriver();
-                    driver.manage().window().maximize();
-                    break;
+                driver.manage().window().setSize(new Dimension(1366, 768));	
+                break;
                 default:
                     throw new IllegalArgumentException("Unsupported browser: " + browser);
             }
@@ -136,7 +137,7 @@ public class LoginTest {
                                                            // login button
                 long durationMillis = endTime - startTime;
                 double durationSeconds = durationMillis / 1000.0;
-                System.out.println("Login → Dashboard Load Time: " + durationSeconds + " seconds");
+                System.out.println("Login to Dashboard Load Time: " + durationSeconds + " seconds");
                 test.info("Login to Dashboard Load Time: " + durationSeconds + " seconds");
                 ExtentManager.wait(5); // Just simulate wait for redirect
                 test.addScreenCaptureFromPath(ExtentManager.captureScreenshot(driver, "login_success"));

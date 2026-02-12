@@ -4,7 +4,7 @@
 # TestNG / Selenium output
 /test-output/
 /reports/
-/screenshots/
+/reports/screenshots/
 
 # Logs
 *.log
@@ -18,5 +18,4 @@
 # OS files
 .DS_Store
 Thumbs.db
-log.txt
 log.txt
