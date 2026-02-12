@@ -31,17 +31,47 @@ public class ExtentManager {
 
     public static String captureScreenshot(WebDriver driver, String screenshotName) {
         try {
-            TakesScreenshot ts = (TakesScreenshot) driver;
-            File source = ts.getScreenshotAs(OutputType.FILE);
-            String relativePath = "reports/screenshots/" + screenshotName + "_" +
+            String relativePath = "screenshots/" + screenshotName + "_" +
                                   new SimpleDateFormat("yyyyMMddHHmmss").format(new Date()) + ".png";
-            String dest = System.getProperty("user.dir") + "/" + relativePath;
+            String dest = System.getProperty("user.dir") + "/reports/" + relativePath;
             File destination = new File(dest);
             File parentDir = destination.getParentFile();
             if (parentDir != null && !parentDir.exists()) {
                 parentDir.mkdirs();
             }
-            FileUtils.copyFile(source, destination);
+            if (driver instanceof ChromiumDriver) {
+                ChromiumDriver chromium = (ChromiumDriver) driver;
+                try {
+                    Map<String, Object> metrics = chromium.executeCdpCommand(
+                        "Page.getLayoutMetrics", new HashMap<>()
+                    );
+                    @SuppressWarnings("unchecked")
+                    Map<String, Object> contentSize =
+                        (Map<String, Object>) metrics.get("contentSize");
+                    int width = ((Number) contentSize.get("width")).intValue();
+                    int height = ((Number) contentSize.get("height")).intValue();
+
+                    Map<String, Object> deviceMetrics = new HashMap<>();
+                    deviceMetrics.put("width", width);
+                    deviceMetrics.put("height", height);
+                    deviceMetrics.put("deviceScaleFactor", 1);
+                    deviceMetrics.put("mobile", false);
+                    chromium.executeCdpCommand("Emulation.setDeviceMetricsOverride", deviceMetrics);
+
+                    Map<String, Object> screenshot = chromium.executeCdpCommand(
+                        "Page.captureScreenshot", Map.of("fromSurface", true)
+                    );
+                    String base64 = (String) screenshot.get("data");
+                    byte[] bytes = Base64.getDecoder().decode(base64);
+                    FileUtils.writeByteArrayToFile(destination, bytes);
+                } finally {
+                    chromium.executeCdpCommand("Emulation.clearDeviceMetricsOverride", new HashMap<>());
+                }
+            } else {
+                TakesScreenshot ts = (TakesScreenshot) driver;
+                File source = ts.getScreenshotAs(OutputType.FILE);
+                FileUtils.copyFile(source, destination);
+            }
             return relativePath;
         } catch (IOException e) {
             return e.getMessage();
