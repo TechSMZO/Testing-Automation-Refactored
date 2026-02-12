@@ -37,6 +37,4 @@ jobs:
         with:
           name: ui-smoke-report
           path: |
-            test-output/**
             reports/**
-            **/*.html

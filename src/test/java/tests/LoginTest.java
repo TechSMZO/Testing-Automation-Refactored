@@ -39,7 +39,7 @@ public class LoginTest {
         // if(this.browser == null) {
         // browser = "chrome";
         // }
-        //
+        
         // ✅ CHANGED: Initialize extent FIRST, before driver setup
         extent = ExtentManager.getInstance();
 
@@ -106,6 +106,8 @@ public class LoginTest {
         }
         driver.findElement(By.id("password")).sendKeys("12345678");
         test.pass("Entered Password");
+        test.addScreenCaptureFromPath(ExtentManager.captureScreenshot(driver, "credentials_entered"));
+        test.pass("Captured screenshot after entering credentials");
         test.addScreenCaptureFromPath(ExtentManager.captureScreenshot(driver, "logging_in"));
 
         // Logging into panel and validating test case along with loading time of
