@@ -13,6 +13,7 @@
 .project
 .classpath
 .settings/
+.vscode/settings.json
 
 # OS files
 .DS_Store

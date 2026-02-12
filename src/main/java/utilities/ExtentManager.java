@@ -33,6 +33,10 @@ public class ExtentManager {
             String dest = System.getProperty("user.dir") + "/reports/screenshots/" + screenshotName + "_" +
                           new SimpleDateFormat("yyyyMMddHHmmss").format(new Date()) + ".png";
             File destination = new File(dest);
+            File parentDir = destination.getParentFile();
+            if (parentDir != null && !parentDir.exists()) {
+                parentDir.mkdirs();
+            }
             FileUtils.copyFile(source, destination);
             return dest;
         } catch (IOException e) {
