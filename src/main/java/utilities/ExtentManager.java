@@ -30,15 +30,16 @@ public class ExtentManager {
         try {
             TakesScreenshot ts = (TakesScreenshot) driver;
             File source = ts.getScreenshotAs(OutputType.FILE);
-            String dest = System.getProperty("user.dir") + "/reports/screenshots/" + screenshotName + "_" +
-                          new SimpleDateFormat("yyyyMMddHHmmss").format(new Date()) + ".png";
+            String relativePath = "reports/screenshots/" + screenshotName + "_" +
+                                  new SimpleDateFormat("yyyyMMddHHmmss").format(new Date()) + ".png";
+            String dest = System.getProperty("user.dir") + "/" + relativePath;
             File destination = new File(dest);
             File parentDir = destination.getParentFile();
             if (parentDir != null && !parentDir.exists()) {
                 parentDir.mkdirs();
             }
             FileUtils.copyFile(source, destination);
-            return dest;
+            return relativePath;
         } catch (IOException e) {
             return e.getMessage();
         }
