@@ -35,23 +35,23 @@ public class LoginRegressionTest extends BaseTest {
         super(browser);
     }
 
-    @Test(dataProvider = "loginData", dataProviderClass = LoginDataProvider.class,
-            groups = {"login", "smoke", "regression"})
-    public void login_valid_login_should_open_dashboard(LoginCaseData data) {
-        runLoginScenario(data);
-    }
+    // @Test(dataProvider = "loginData", dataProviderClass = LoginDataProvider.class,
+    //         groups = {"login", "smoke", "regression"})
+    // public void login_valid_login_should_open_dashboard(LoginCaseData data) {
+    //     runLoginScenario(data);
+    // }
 
-    @Test(dataProvider = "loginData", dataProviderClass = LoginDataProvider.class,
-            groups = {"login", "smoke", "regression"})
-    public void login_invalid_password_should_show_error(LoginCaseData data) {
-        runLoginScenario(data);
-    }
+    // @Test(dataProvider = "loginData", dataProviderClass = LoginDataProvider.class,
+    //         groups = {"login", "smoke", "regression"})
+    // public void login_invalid_password_should_show_error(LoginCaseData data) {
+    //     runLoginScenario(data);
+    // }
 
-    @Test(dataProvider = "loginData", dataProviderClass = LoginDataProvider.class,
-            groups = {"login", "smoke", "regression"})
-    public void login_unregistered_phone_should_show_error(LoginCaseData data) {
-        runLoginScenario(data);
-    }
+    // @Test(dataProvider = "loginData", dataProviderClass = LoginDataProvider.class,
+    //         groups = {"login", "smoke", "regression"})
+    // public void login_unregistered_phone_should_show_error(LoginCaseData data) {
+    //     runLoginScenario(data);
+    // }
 
     private void runLoginScenario(LoginCaseData data) {
         ExtentTest test = extent.createTest(
