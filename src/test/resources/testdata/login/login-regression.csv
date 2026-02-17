@@ -1,0 +1,31 @@
+tc_id,scenario_key,description,username,password,expected_result,expected_error_text,run_smoke,run_regression,enabled,priority
+TC_LOGIN_001,valid_login,Valid login using runtime env credentials,ENV:LOGIN_USERNAME,ENV:LOGIN_PASSWORD,SUCCESS,,true,true,true,1
+TC_LOGIN_002,valid_login,Valid login dataset 2,ENV:LOGIN_USERNAME,ENV:LOGIN_PASSWORD,SUCCESS,,false,true,true,2
+TC_LOGIN_003,valid_login,Valid login dataset 3,ENV:LOGIN_USERNAME,ENV:LOGIN_PASSWORD,SUCCESS,,false,true,true,3
+TC_LOGIN_004,valid_login,Valid login dataset 4,ENV:LOGIN_USERNAME,ENV:LOGIN_PASSWORD,SUCCESS,,false,true,true,4
+TC_LOGIN_005,valid_login,Valid login dataset 5,ENV:LOGIN_USERNAME,ENV:LOGIN_PASSWORD,SUCCESS,,false,true,true,5
+TC_LOGIN_006,valid_login,Valid login dataset 6,ENV:LOGIN_USERNAME,ENV:LOGIN_PASSWORD,SUCCESS,,false,true,true,6
+TC_LOGIN_007,valid_login,Valid login dataset 7,ENV:LOGIN_USERNAME,ENV:LOGIN_PASSWORD,SUCCESS,,false,true,true,7
+TC_LOGIN_008,valid_login,Valid login dataset 8,ENV:LOGIN_USERNAME,ENV:LOGIN_PASSWORD,SUCCESS,,false,true,true,8
+TC_LOGIN_009,valid_login,Valid login dataset 9,ENV:LOGIN_USERNAME,ENV:LOGIN_PASSWORD,SUCCESS,,false,true,true,9
+TC_LOGIN_010,valid_login,Valid login dataset 10,ENV:LOGIN_USERNAME,ENV:LOGIN_PASSWORD,SUCCESS,,false,true,true,10
+TC_LOGIN_011,invalid_password,Invalid password dataset 1,ENV:LOGIN_USERNAME,wrongpass1,ERROR,Invalid credentials,true,true,true,1
+TC_LOGIN_012,invalid_password,Invalid password dataset 2,ENV:LOGIN_USERNAME,wrongpass2,ERROR,Invalid credentials,false,true,true,2
+TC_LOGIN_013,invalid_password,Invalid password dataset 3,ENV:LOGIN_USERNAME,wrongpass3,ERROR,Invalid credentials,false,true,true,3
+TC_LOGIN_014,invalid_password,Invalid password dataset 4,ENV:LOGIN_USERNAME,wrongpass4,ERROR,Invalid credentials,false,true,true,4
+TC_LOGIN_015,invalid_password,Invalid password dataset 5,ENV:LOGIN_USERNAME,wrongpass5,ERROR,Invalid credentials,false,true,true,5
+TC_LOGIN_016,invalid_password,Invalid password dataset 6,ENV:LOGIN_USERNAME,wrongpass6,ERROR,Invalid credentials,false,true,true,6
+TC_LOGIN_017,invalid_password,Invalid password dataset 7,ENV:LOGIN_USERNAME,wrongpass7,ERROR,Invalid credentials,false,true,true,7
+TC_LOGIN_018,invalid_password,Invalid password dataset 8,ENV:LOGIN_USERNAME,wrongpass8,ERROR,Invalid credentials,false,true,true,8
+TC_LOGIN_019,invalid_password,Invalid password dataset 9,ENV:LOGIN_USERNAME,wrongpass9,ERROR,Invalid credentials,false,true,true,9
+TC_LOGIN_020,invalid_password,Invalid password dataset 10,ENV:LOGIN_USERNAME,wrongpass10,ERROR,Invalid credentials,false,true,true,10
+TC_LOGIN_021,unregistered_phone,Unregistered phone dataset 1,9000000001,anypass,ERROR,Email or phone is not registered.,true,true,true,1
+TC_LOGIN_022,unregistered_phone,Unregistered phone dataset 2,9000000002,anypass,ERROR,Email or phone is not registered.,false,true,true,2
+TC_LOGIN_023,unregistered_phone,Unregistered phone dataset 3,9000000003,anypass,ERROR,Email or phone is not registered.,false,true,true,3
+TC_LOGIN_024,unregistered_phone,Unregistered phone dataset 4,9000000004,anypass,ERROR,Email or phone is not registered.,false,true,true,4
+TC_LOGIN_025,unregistered_phone,Unregistered phone dataset 5,9000000005,anypass,ERROR,Email or phone is not registered.,false,true,true,5
+TC_LOGIN_026,unregistered_phone,Unregistered phone dataset 6,9000000006,anypass,ERROR,Email or phone is not registered.,false,true,true,6
+TC_LOGIN_027,unregistered_phone,Unregistered phone dataset 7,9000000007,anypass,ERROR,Email or phone is not registered.,false,true,true,7
+TC_LOGIN_028,unregistered_phone,Unregistered phone dataset 8,9000000008,anypass,ERROR,Email or phone is not registered.,false,true,true,8
+TC_LOGIN_029,unregistered_phone,Unregistered phone dataset 9,9000000009,anypass,ERROR,Email or phone is not registered.,false,true,true,9
+TC_LOGIN_030,unregistered_phone,Unregistered phone dataset 10,9000000010,anypass,ERROR,Email or phone is not registered.,false,true,true,10
