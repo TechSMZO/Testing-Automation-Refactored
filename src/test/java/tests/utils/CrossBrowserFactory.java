@@ -1,18 +1,19 @@
 // Placeholder for CrossBrowserFactory.java content
 
 // CrossBrowserFactory.java
-package tests;
+package tests.utils;
 
 import org.testng.annotations.Factory;
+import tests.LoginTest;
 
 public class CrossBrowserFactory {
 	@Factory
 	public Object[] createInstances() {
 		return new Object[] {
 
-				new tests.LoginTest("chrome"),
-				// new tests.LoginTest("edge"),
-				// new tests.LoginTest("firefox")
+				new LoginTest("chrome"),
+				// new LoginTest("edge"),
+				// new LoginTest("firefox")
 
 		};
 	}

@@ -1,5 +1,5 @@
 // Placeholder for ProgrammaticTestRunner.java content
-package tests;
+package tests.utils;
 
 import org.testng.TestNG;
 import org.testng.xml.XmlSuite;
@@ -27,7 +27,7 @@ public class TestSuiteRunner {
         // Create test
         XmlTest test = new XmlTest(suite);
         test.setName("CrossBrowserTests");
-        test.setXmlClasses(Collections.singletonList(new XmlClass("tests.CrossBrowserFactory")));
+        test.setXmlClasses(Collections.singletonList(new XmlClass("tests.utils.CrossBrowserFactory")));
 
         // Set suite and run
         testng.setXmlSuites(Collections.singletonList(suite));

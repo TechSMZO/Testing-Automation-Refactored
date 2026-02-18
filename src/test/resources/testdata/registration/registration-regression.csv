@@ -1,0 +1,7 @@
+scenario_id,user_type,name,email,phone,password,confirm_password,agree_terms
+valid_registration,Seller,QA User 1,DYN_EMAIL,DYN_PHONE,Pass@1234,Pass@1234,true
+valid_registration,Seller,QA User 2,DYN_EMAIL,DYN_PHONE,Pass@1234,Pass@1234,true
+invalid_email,Seller,Bad Email User,invalid-email,DYN_PHONE,Pass@1234,Pass@1234,true
+invalid_email,Seller,Bad Email User 2,abc,DYN_PHONE,Pass@1234,Pass@1234,true
+password_mismatch,Seller,Mismatch User,DYN_EMAIL,DYN_PHONE,Pass@1234,Pass@12345,true
+password_mismatch,Seller,Mismatch User 2,DYN_EMAIL,DYN_PHONE,Pass@1234,Different@123,true

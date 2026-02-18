@@ -1,4 +1,4 @@
-package tests;
+package tests.utils;
 
 import com.aventstack.extentreports.ExtentReports;
 import io.github.bonigarcia.wdm.WebDriverManager;

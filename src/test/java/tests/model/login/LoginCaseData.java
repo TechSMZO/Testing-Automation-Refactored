@@ -4,53 +4,28 @@ package tests.model.login;
  * One dataset row for login regression execution.
  */
 public class LoginCaseData {
-    private final String tcId;
-    private final String scenarioKey;
-    private final String description;
+    private final String scenarioId;
     private final String username;
     private final String password;
-    private final String expectedResult;
-    private final String expectedErrorText;
-    private final boolean runSmoke;
-    private final boolean runRegression;
-    private final boolean enabled;
-    private final int priority;
+    private final int datasetIndex;
 
-    public LoginCaseData(
-            String tcId,
-            String scenarioKey,
-            String description,
-            String username,
-            String password,
-            String expectedResult,
-            String expectedErrorText,
-            boolean runSmoke,
-            boolean runRegression,
-            boolean enabled,
-            int priority) {
-        this.tcId = tcId;
-        this.scenarioKey = scenarioKey;
-        this.description = description;
+    public LoginCaseData(String scenarioId, String username, String password, int datasetIndex) {
+        this.scenarioId = scenarioId;
         this.username = username;
         this.password = password;
-        this.expectedResult = expectedResult;
-        this.expectedErrorText = expectedErrorText;
-        this.runSmoke = runSmoke;
-        this.runRegression = runRegression;
-        this.enabled = enabled;
-        this.priority = priority;
+        this.datasetIndex = datasetIndex;
     }
 
-    public String getTcId() {
-        return tcId;
+    public String getScenarioId() {
+        return scenarioId;
     }
 
-    public String getScenarioKey() {
-        return scenarioKey;
+    public int getDatasetIndex() {
+        return datasetIndex;
     }
 
-    public String getDescription() {
-        return description;
+    public String getDatasetId() {
+        return scenarioId.toUpperCase() + "_" + String.format("%02d", datasetIndex);
     }
 
     public String getUsername() {
@@ -59,29 +34,5 @@ public class LoginCaseData {
 
     public String getPassword() {
         return password;
-    }
-
-    public String getExpectedResult() {
-        return expectedResult;
-    }
-
-    public String getExpectedErrorText() {
-        return expectedErrorText;
-    }
-
-    public boolean isRunSmoke() {
-        return runSmoke;
-    }
-
-    public boolean isRunRegression() {
-        return runRegression;
-    }
-
-    public boolean isEnabled() {
-        return enabled;
-    }
-
-    public int getPriority() {
-        return priority;
     }
 }

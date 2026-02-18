@@ -13,12 +13,6 @@
  </properties>
  
  <dependencies> 
- <dependency>
-    <groupId>com.opencsv</groupId>
-    <artifactId>opencsv</artifactId>
-    <version>5.7.1</version>
-</dependency>
-
    <!-- Core POI -->
    <dependency>
        <groupId>org.apache.poi</groupId>
@@ -91,7 +85,7 @@
          <configuration>
            <transformers>
              <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
-               <mainClass>tests.TestSuiteRunner</mainClass> <!-- Use your full class path -->
+               <mainClass>tests.utils.TestSuiteRunner</mainClass> <!-- Use your full class path -->
              </transformer>
            </transformers>
          </configuration>
@@ -112,7 +106,7 @@
     <artifactId>exec-maven-plugin</artifactId>
     <version>3.1.0</version>
     <configuration>
-        <mainClass>tests.TestSuiteRunner</mainClass>
+        <mainClass>tests.utils.TestSuiteRunner</mainClass>
     </configuration>
 </plugin>
 

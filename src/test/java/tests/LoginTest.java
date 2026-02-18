@@ -2,12 +2,11 @@ package tests;
 
 import com.aventstack.extentreports.ExtentTest;
 import java.time.Duration;
-import org.openqa.selenium.By;
 import org.openqa.selenium.TimeoutException;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import org.testng.annotations.Test;
+import tests.pages.LoginPage;
+import tests.utils.BaseTest;
 import utilities.ExtentManager;
 
 /**
@@ -33,17 +32,19 @@ public class LoginTest extends BaseTest {
         String baseUrl = readConfig("BASE_URL", "base.url", DEFAULT_BASE_URL);
         String loginUsername = readConfig("LOGIN_USERNAME", "login.username", DEFAULT_LOGIN_USERNAME);
         String loginPassword = readConfig("LOGIN_PASSWORD", "login.password", DEFAULT_LOGIN_PASSWORD);
+        LoginPage loginPage = new LoginPage(driver);
 
-        driver.get(baseUrl + "/login");
+        loginPage.open(baseUrl);
+        loginPage.waitUntilLoaded(Duration.ofSeconds(10));
         test.pass("Opened Login Page");
         test.addScreenCaptureFromPath(ExtentManager.captureScreenshot(driver, "login_page"));
-        if (!driver.getCurrentUrl().contains("login")) {
+        if (!loginPage.isLoaded()) {
             test.fail("Failed to load login page on " + browser);
             Assert.fail("Login page not loaded.");
         }
 
         try {
-            type(By.id("emailphone"), loginUsername);
+            loginPage.enterUsername(loginUsername);
             test.pass("Entered Username");
         } catch (Exception exception) {
             test.fail("Failed to enter username: " + exception.getMessage());
@@ -51,25 +52,17 @@ public class LoginTest extends BaseTest {
             throw new RuntimeException("Unable to enter username", exception);
         }
 
-        type(By.id("password"), loginPassword);
+        loginPage.enterPassword(loginPassword);
         test.pass("Entered Password");
         test.addScreenCaptureFromPath(ExtentManager.captureScreenshot(driver, "credentials_entered"));
         test.addScreenCaptureFromPath(ExtentManager.captureScreenshot(driver, "logging_in"));
 
         long startTime = System.currentTimeMillis();
-        click(By.xpath("//button[contains(text(),'Log In')]"));
+        loginPage.clickLogin();
         try {
-            WebDriverWait wait = new WebDriverWait(driver, LOGIN_RESULT_TIMEOUT);
-            wait.until(ExpectedConditions.or(
-                    ExpectedConditions.urlContains("/orders/new"),
-                    ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[contains(text(),'Invalid credentials')]")),
-                    ExpectedConditions.visibilityOfElementLocated(
-                            By.xpath("//div[contains(text(),'Email or phone is not registered.')]"))
-            ));
+            loginPage.waitForLoginOutcome(LOGIN_RESULT_TIMEOUT);
 
-            String currentUrl = driver.getCurrentUrl();
-            String title = driver.getTitle();
-            if (currentUrl.contains("/orders/new") && title.contains("Shipmozo")) {
+            if (loginPage.isDashboardLoaded()) {
                 test.pass("Successfully landed on dashboard");
                 long durationMillis = System.currentTimeMillis() - startTime;
                 double durationSeconds = durationMillis / 1000.0;
