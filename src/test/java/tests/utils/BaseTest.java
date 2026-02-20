@@ -11,6 +11,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.edge.EdgeDriver;
+import org.openqa.selenium.edge.EdgeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxOptions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -43,24 +44,36 @@ public abstract class BaseTest {
     @BeforeClass(alwaysRun = true)
     public void setUp() {
         extent = ExtentManager.getInstance(getClass().getSimpleName());
+        browser = resolveBrowser(browser);
+        boolean headless = isHeadlessEnabled();
         try {
             System.out.println(">>> Browser Param: " + browser);
+            System.out.println(">>> Headless Mode: " + headless);
             switch (browser) {
                 case "chrome":
                     ChromeOptions options = new ChromeOptions();
-                    // options.addArguments("--headless=new");
+                    if (headless) {
+                        options.addArguments("--headless=new");
+                    }
                     options.addArguments("--window-size=1920,1080");
                     options.addArguments("--disable-gpu");
                     options.addArguments("--no-sandbox");
                     options.addArguments("--disable-dev-shm-usage");
+                    options.addArguments("--remote-allow-origins=*");
                     WebDriverManager.chromedriver().setup();
                     driver = new ChromeDriver(options);
-                    driver.manage().window().maximize();
-                    // driver.manage().window().setSize(new Dimension(1366, 768));
+                    if (headless) {
+                        driver.manage().window().setSize(new Dimension(1920, 1080));
+                    } else {
+                        driver.manage().window().maximize();
+                    }
                     break;
                 case "firefox":
                     WebDriverManager.firefoxdriver().setup();
                     FirefoxOptions firefoxOptions = new FirefoxOptions();
+                    if (headless) {
+                        firefoxOptions.addArguments("-headless");
+                    }
                     firefoxOptions.addArguments("--no-sandbox");
                     firefoxOptions.addArguments("--disable-dev-shm-usage");
                     driver = new FirefoxDriver(firefoxOptions);
@@ -68,7 +81,15 @@ public abstract class BaseTest {
                     break;
                 case "edge":
                     WebDriverManager.edgedriver().setup();
-                    driver = new EdgeDriver();
+                    EdgeOptions edgeOptions = new EdgeOptions();
+                    if (headless) {
+                        edgeOptions.addArguments("--headless=new");
+                    }
+                    edgeOptions.addArguments("--window-size=1366,768");
+                    edgeOptions.addArguments("--disable-gpu");
+                    edgeOptions.addArguments("--no-sandbox");
+                    edgeOptions.addArguments("--disable-dev-shm-usage");
+                    driver = new EdgeDriver(edgeOptions);
                     driver.manage().window().setSize(new Dimension(1366, 768));
                     break;
                 default:
@@ -76,8 +97,46 @@ public abstract class BaseTest {
             }
         } catch (Exception exception) {
             System.out.println("Failed to start browser: " + browser + " - " + exception.getMessage());
+            exception.printStackTrace();
             Assert.fail("Driver setup failed for browser: " + browser, exception);
         }
+    }
+
+    /**
+     * Browser precedence: system property browser -> env BROWSER -> constructor/default.
+     */
+    private String resolveBrowser(String fallbackBrowser) {
+        String fromProperty = System.getProperty("browser");
+        if (fromProperty != null && !fromProperty.isBlank()) {
+            return fromProperty.trim().toLowerCase();
+        }
+
+        String fromEnv = System.getenv("BROWSER");
+        if (fromEnv != null && !fromEnv.isBlank()) {
+            return fromEnv.trim().toLowerCase();
+        }
+
+        return (fallbackBrowser == null || fallbackBrowser.isBlank())
+                ? "chrome"
+                : fallbackBrowser.trim().toLowerCase();
+    }
+
+    /**
+     * Headless precedence: system property headless -> env HEADLESS -> env CI.
+     */
+    private boolean isHeadlessEnabled() {
+        String propertyHeadless = System.getProperty("headless");
+        if (propertyHeadless != null && !propertyHeadless.isBlank()) {
+            return "true".equalsIgnoreCase(propertyHeadless.trim());
+        }
+
+        String envHeadless = System.getenv("HEADLESS");
+        if (envHeadless != null && !envHeadless.isBlank()) {
+            return "true".equalsIgnoreCase(envHeadless.trim());
+        }
+
+        String envCi = System.getenv("CI");
+        return envCi != null && "true".equalsIgnoreCase(envCi.trim());
     }
 
     /**

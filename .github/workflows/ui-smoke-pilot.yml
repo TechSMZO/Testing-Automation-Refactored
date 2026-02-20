@@ -28,6 +28,12 @@ jobs:
           distribution: temurin
           java-version: "17"
 
+      - name: Setup Chrome
+        uses: browser-actions/setup-chrome@v1
+
+      - name: Chrome Version
+        run: google-chrome --version
+
       - name: Cache Maven dependencies
         uses: actions/cache@v4
         with:
@@ -35,7 +41,7 @@ jobs:
           key: maven-${{ hashFiles('**/pom.xml') }}
 
       - name: Run UI smoke tests
-        run: mvn test -Dgroups=sanity
+        run: mvn -q test "-Dtest=tests.LoginSanityTest" "-Dgroups=sanity"
 
       - name: Run AddOrder smoke tests
         run: mvn -q test "-Dtest=tests.AddOrderTest" "-Dgroups=smoke"
