@@ -40,11 +40,8 @@ jobs:
           path: ~/.m2
           key: maven-${{ hashFiles('**/pom.xml') }}
 
-      - name: Run UI smoke tests
-        run: mvn -q test "-Dtest=tests.LoginSanityTest" "-Dgroups=sanity"
-
-      - name: Run AddOrder smoke tests
-        run: mvn -q test "-Dtest=tests.AddOrderTest" "-Dgroups=smoke"
+      - name: Run TestNG sequence suite
+        run: mvn -q clean test "-Dsurefire.suiteXmlFiles=src/test/resources/testng-sequence.xml"
 
       - name: Create ZIP of Reports
         run: |
@@ -115,7 +112,7 @@ jobs:
             "body": [
               {
                 "type": "TextBlock",
-                "text": "UI Sanity + AddOrder Smoke (Beta)",
+                "text": "UI TestNG Sequence Run (Beta)",
                 "weight": "Bolder",
                 "size": "Medium"
               },
