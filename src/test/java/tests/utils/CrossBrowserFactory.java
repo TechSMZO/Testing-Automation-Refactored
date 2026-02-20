@@ -1,21 +1,21 @@
-// Placeholder for CrossBrowserFactory.java content
-
-// CrossBrowserFactory.java
 package tests.utils;
 
 import org.testng.annotations.Factory;
-import tests.LoginTest;
+import tests.LoginSanityTest;
 
+/**
+ * Creates browser-specific test class instances for factory-based runs.
+ */
 public class CrossBrowserFactory {
-	@Factory
-	public Object[] createInstances() {
-		return new Object[] {
+    @Factory
+    public Object[] createInstances() {
+        return new Object[] {
 
-				new LoginTest("chrome"),
-				// new LoginTest("edge"),
-				// new LoginTest("firefox")
+                new LoginSanityTest("chrome"),
+                // new LoginSanityTest("edge"),
+                // new LoginSanityTest("firefox")
 
-		};
-	}
+        };
+    }
 
 }

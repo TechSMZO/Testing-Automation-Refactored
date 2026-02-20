@@ -1,0 +1,28 @@
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+<suite name="UI Ordered Suite" verbose="1" parallel="none">
+    <test name="00-Sanity" preserve-order="true">
+        <groups>
+            <run>
+                <include name="sanity"/>
+            </run>
+        </groups>
+        <classes>
+            <class name="tests.LoginSanityTest"/>
+        </classes>
+    </test>
+
+    <test name="01-Smoke" preserve-order="true">
+        <groups>
+            <run>
+                <include name="smoke"/>
+            </run>
+        </groups>
+        <classes>
+            
+            <class name="tests.RegistrationTest"/>
+            <class name="tests.ProfileCompletionTest"/>
+            <class name="tests.CourierAssignmentTest"/>
+            <class name="tests.RateCalculatorTest"/>
+        </classes>
+    </test>
+</suite>

@@ -18,7 +18,6 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
-import utilities.ExtentManager;
 
 /**
  * Shared base for legacy UI tests in tests package.
@@ -38,22 +37,26 @@ public abstract class BaseTest {
         this.browser = (browser == null || browser.isBlank()) ? "chrome" : browser.toLowerCase();
     }
 
-    @BeforeClass
+    /**
+     * Creates WebDriver and ExtentReports before test class execution.
+     */
+    @BeforeClass(alwaysRun = true)
     public void setUp() {
-        extent = ExtentManager.getInstance();
+        extent = ExtentManager.getInstance(getClass().getSimpleName());
         try {
             System.out.println(">>> Browser Param: " + browser);
             switch (browser) {
                 case "chrome":
                     ChromeOptions options = new ChromeOptions();
-                    options.addArguments("--headless=new");
+                    // options.addArguments("--headless=new");
                     options.addArguments("--window-size=1920,1080");
                     options.addArguments("--disable-gpu");
                     options.addArguments("--no-sandbox");
                     options.addArguments("--disable-dev-shm-usage");
                     WebDriverManager.chromedriver().setup();
                     driver = new ChromeDriver(options);
-                    driver.manage().window().setSize(new Dimension(1366, 768));
+                    driver.manage().window().maximize();
+                    // driver.manage().window().setSize(new Dimension(1366, 768));
                     break;
                 case "firefox":
                     WebDriverManager.firefoxdriver().setup();
@@ -77,7 +80,10 @@ public abstract class BaseTest {
         }
     }
 
-    @AfterClass
+    /**
+     * Flushes report and closes browser after class execution.
+     */
+    @AfterClass(alwaysRun = true)
     public void tearDown() {
         if (extent != null) {
             extent.flush();
@@ -87,6 +93,9 @@ public abstract class BaseTest {
         }
     }
 
+    /**
+     * Scrolls to a sidebar-like section label and clicks it when present.
+     */
     protected void expandSection(String sectionName) {
         try {
             WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
@@ -99,6 +108,9 @@ public abstract class BaseTest {
         }
     }
 
+    /**
+     * Scrolls to an element by id and fills text.
+     */
     protected void scrollToElementAndFill(String elementId, String value) {
         WebElement element = driver.findElement(By.id(elementId));
         ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", element);
@@ -107,6 +119,9 @@ public abstract class BaseTest {
         element.sendKeys(value);
     }
 
+    /**
+     * Scrolls to an element and clicks it.
+     */
     protected void scrollToElementAndClick(By locator) {
         WebElement element = driver.findElement(locator);
         ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block:'center', behavior:'smooth'});",
@@ -115,17 +130,26 @@ public abstract class BaseTest {
         element.click();
     }
 
+    /**
+     * Waits until the element is visible and returns it.
+     */
     protected WebElement waitVisible(By locator) {
         return new WebDriverWait(driver, DEFAULT_TIMEOUT)
                 .until(ExpectedConditions.visibilityOfElementLocated(locator));
     }
 
+    /**
+     * Waits until element is clickable and clicks it.
+     */
     protected void click(By locator) {
         WebElement element = new WebDriverWait(driver, DEFAULT_TIMEOUT)
                 .until(ExpectedConditions.elementToBeClickable(locator));
         element.click();
     }
 
+    /**
+     * Waits for visible element, clears it, then types value.
+     */
     protected void type(By locator, String value) {
         WebElement element = waitVisible(locator);
         element.clear();

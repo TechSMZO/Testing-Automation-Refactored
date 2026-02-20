@@ -99,6 +99,9 @@
  <version>3.0.0</version>
  <configuration>
    <skipTests>false</skipTests>
+   <suiteXmlFiles>
+     <suiteXmlFile>src/test/resources/testng-sequence.xml</suiteXmlFile>
+   </suiteXmlFiles>
  </configuration>
 </plugin>
 <plugin>

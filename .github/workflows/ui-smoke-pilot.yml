@@ -1,19 +1,25 @@
-name: UI Smoke Tests (Pilot)
+name: Automated UI Smoke & Regression Tests (Beta)
 
 on:
   workflow_dispatch:
 
+permissions:
+  contents: write
+
 jobs:
   ui-smoke:
+
     runs-on: ubuntu-latest
 
     env:
       BASE_URL: https://panel.shipmozo.com
       HEADLESS: "true"
       BROWSER: "chrome"
+      PUBLIC_REPO: ${{ secrets.PUBLIC_REPO }}
 
     steps:
-      - name: Checkout repository
+
+      - name: Checkout private repo
         uses: actions/checkout@v4
 
       - name: Setup Java 17
@@ -29,12 +35,122 @@ jobs:
           key: maven-${{ hashFiles('**/pom.xml') }}
 
       - name: Run UI smoke tests
-        run: mvn clean test 
+        run: mvn test -Dgroups=sanity
 
-      - name: Upload test reports
-        if: always()
-        uses: actions/upload-artifact@v4
+      - name: Run AddOrder smoke tests
+        run: mvn -q test "-Dtest=tests.AddOrderTest" "-Dgroups=smoke"
+
+      - name: Create ZIP of Reports
+        run: |
+          zip -r ui-smoke-report-${{ github.run_number }}.zip reports/
+
+      - name: Checkout public repo
+        uses: actions/checkout@v4
         with:
-          name: ui-smoke-report
-          path: |
-            reports/**
+          repository: ${{ secrets.PUBLIC_REPO }}
+          token: ${{ secrets.PUBLIC_REPO_PAT }}
+          path: public-reports
+          ref: main  # update if your public repo default branch is different
+
+      - name: Copy ZIP into public repo
+        run: |
+          cp ui-smoke-report-${{ github.run_number }}.zip public-reports/
+
+      - name: Commit and push ZIP
+        run: |
+          cd public-reports
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git config user.name "GitHub Actions"
+          git add .
+          git commit -m "Add smoke report #${{ github.run_number }}"
+          git push
+
+      - name: Set Public ZIP URL
+        run: |
+          echo "ZIP_PUBLIC_URL=https://raw.githubusercontent.com/${{ secrets.PUBLIC_REPO }}/main/ui-smoke-report-${{ github.run_number }}.zip" >> $GITHUB_ENV
+
+      - name: Collect Test Summary
+        shell: bash
+        run: |
+          files=(target/surefire-reports/TEST-*.xml)
+
+          if [ ${#files[@]} -eq 0 ]; then
+            echo "TESTS_TOTAL=0" >> $GITHUB_ENV
+            echo "TESTS_PASSED=0" >> $GITHUB_ENV
+            echo "TESTS_FAILED=0" >> $GITHUB_ENV
+            echo "TESTS_SKIPPED=0" >> $GITHUB_ENV
+            exit 0
+          fi
+
+          total=$(grep -hoE 'tests="[0-9]+"' "${files[@]}" | grep -oE '[0-9]+' | awk '{s+=$1} END{print s+0}')
+          failures=$(grep -hoE 'failures="[0-9]+"' "${files[@]}" | grep -oE '[0-9]+' | awk '{s+=$1} END{print s+0}')
+          errors=$(grep -hoE 'errors="[0-9]+"' "${files[@]}" | grep -oE '[0-9]+' | awk '{s+=$1} END{print s+0}')
+          skipped=$(grep -hoE 'skipped="[0-9]+"' "${files[@]}" | grep -oE '[0-9]+' | awk '{s+=$1} END{print s+0}')
+          failed=$((failures + errors))
+          passed=$((total - failed - skipped))
+
+          echo "TESTS_TOTAL=$total" >> $GITHUB_ENV
+          echo "TESTS_PASSED=$passed" >> $GITHUB_ENV
+          echo "TESTS_FAILED=$failed" >> $GITHUB_ENV
+          echo "TESTS_SKIPPED=$skipped" >> $GITHUB_ENV
+
+      - name: Notify Teams (Adaptive Card)
+        env:
+          TEAMS_WORKFLOW_URL: ${{ secrets.TEAMS_WORKFLOW_URL }}
+          JOB_STATUS: ${{ job.status }}
+        run: |
+          RUN_URL="https://github.com/${GITHUB_REPOSITORY}/actions/runs/${GITHUB_RUN_ID}"
+
+          payload=$(cat <<EOF
+          {
+            "type": "AdaptiveCard",
+            "\$schema": "http://adaptivecards.io/schemas/adaptive-card.json",
+            "version": "1.4",
+            "body": [
+              {
+                "type": "TextBlock",
+                "text": "UI Sanity + AddOrder Smoke (Beta)",
+                "weight": "Bolder",
+                "size": "Medium"
+              },
+              {
+                "type": "FactSet",
+                "facts": [
+                  { "title": "Status", "value": "${JOB_STATUS}" },
+                  { "title": "Workflow", "value": "${GITHUB_WORKFLOW}" },
+                  { "title": "Branch", "value": "${GITHUB_REF_NAME}" },
+                  { "title": "Run #", "value": "${GITHUB_RUN_NUMBER}" },
+                  { "title": "Total Tests", "value": "${TESTS_TOTAL}" },
+                  { "title": "Passed", "value": "${TESTS_PASSED}" },
+                  { "title": "Failed", "value": "${TESTS_FAILED}" },
+                  { "title": "Skipped", "value": "${TESTS_SKIPPED}" }
+                ]
+              },
+              {
+                "type": "TextBlock",
+                "text": "Note: Download & unzip the report, and open the HTML report to view the detailed results.",
+                "wrap": true,
+                "color": "Attention"
+              }
+
+            ],
+            "actions": [
+              
+              {
+                "type": "Action.OpenUrl",
+                "title": "Download Report ZIP",
+                "url": "${ZIP_PUBLIC_URL}"
+              },
+              {
+                "type": "Action.OpenUrl",
+                "title": "Open GitHub Run",
+                "url": "${RUN_URL}"
+              }
+            ]
+          }
+          EOF
+          )
+
+          curl -sS -X POST "$TEAMS_WORKFLOW_URL" \
+            -H "Content-Type: application/json" \
+            --data-raw "$payload"

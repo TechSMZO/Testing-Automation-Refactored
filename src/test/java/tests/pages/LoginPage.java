@@ -2,6 +2,7 @@ package tests.pages;
 
 import java.time.Duration;
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -9,7 +10,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 /**
- * Login page object for legacy tests package.
+ * Login page object with direct, explicit actions and checks.
  */
 public class LoginPage {
     private final WebDriver driver;
@@ -19,6 +20,8 @@ public class LoginPage {
     private static final By LOGIN_BUTTON = By.xpath("//button[contains(text(),'Log In')]");
     private static final By INVALID_CREDENTIALS = By.xpath("//div[contains(text(),'Invalid password')]");
     private static final By UNREGISTERED_PHONE = By.xpath("//div[contains(text(),'Email or phone is not registered.')]");
+    private static final By FULL_PAGE_LOADER = By.cssSelector(".smTextLoader");
+    private static final By DASHBOARD_SHELL = By.id("quick-menu");
 
     public LoginPage(WebDriver driver) {
         this.driver = driver;
@@ -63,17 +66,31 @@ public class LoginPage {
         clickLogin();
     }
 
+    /**
+     * Waits for Orders dashboard to be fully ready:
+     * URL is correct, DOM is fully loaded, loader is gone, and dashboard shell is present.
+     */
     public void waitForDashboard(Duration timeout) {
         WebDriverWait wait = new WebDriverWait(driver, timeout);
         wait.until(ExpectedConditions.urlContains("/orders/new"));
+        wait.until(webDriver -> "complete".equals(
+                ((JavascriptExecutor) webDriver).executeScript("return document.readyState")));
+        wait.until(ExpectedConditions.invisibilityOfElementLocated(FULL_PAGE_LOADER));
+        wait.until(ExpectedConditions.presenceOfElementLocated(DASHBOARD_SHELL));
     }
 
+    /**
+     * Success check: dashboard URL + expected product title.
+     */
     public boolean isDashboardLoaded() {
         return driver.getCurrentUrl().contains("/orders/new")
                 && driver.getTitle() != null
                 && driver.getTitle().toLowerCase().contains("shipmozo");
     }
 
+    /**
+     * Fallback check used in negative tests when exact error is delayed.
+     */
     public boolean isLoginFormVisible() {
         try {
             new WebDriverWait(driver, Duration.ofSeconds(2))
@@ -84,6 +101,9 @@ public class LoginPage {
         }
     }
 
+    /**
+     * Waits for the invalid password error text to appear.
+     */
     public boolean isInvalidCredentialsVisible(Duration timeout) {
         try {
             new WebDriverWait(driver, timeout)
@@ -94,6 +114,9 @@ public class LoginPage {
         }
     }
 
+    /**
+     * Waits for the unregistered phone/email error text to appear.
+     */
     public boolean isUnregisteredPhoneVisible(Duration timeout) {
         try {
             new WebDriverWait(driver, timeout)

@@ -1,0 +1,2 @@
+scenario_id,buyer_name,buyer_phone,buyer_alternate_phone,buyer_email,buyer_gst,address_line1,address_line2,pincode,order_date,order_type,product_name,quantity,unit_price,payment_type,cod_mode,cod_amount,shipping_charges,total_weight,length,width,height,reseller_name,reseller_gst,eway_bill,warehouse_title,warehouse_phone,warehouse_email,run_enabled
+add_order_b2c_e2e,QA Buyer,DYN_PHONE,,DYN_EMAIL,,Flat 101 Sunrise Residency,Sector 21,122001,,essential,Test Product,1,100,prepaid,,,0,0.5,10,10,10,,,,QA Warehouse,DYN_PHONE,DYN_EMAIL,true

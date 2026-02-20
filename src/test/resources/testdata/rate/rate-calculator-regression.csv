@@ -1,0 +1,4 @@
+scenario_id,calculator_mode,package_type,origin_pincode,destination_pincode,weight,invoice_value,length,width,height,run_enabled
+rate_calculator_valid_flow,domestic,Single Package (B2C),400012,122001,0.5,100,10,10,10,true
+rate_calculator_domestic_b2b_flow,domestic,Single Package (B2B),400012,122001,0.5,100,10,10,10,true
+rate_calculator_international_flow,international,Single Package,400012,US10001,0.5,100,10,10,10,true

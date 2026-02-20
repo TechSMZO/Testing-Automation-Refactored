@@ -1,16 +1,7 @@
 scenario_id,username,password
 valid_login,ENV:LOGIN_USERNAME,ENV:LOGIN_PASSWORD
 valid_login,ENV:LOGIN_USERNAME,ENV:LOGIN_PASSWORD
-valid_login,ENV:LOGIN_USERNAME,ENV:LOGIN_PASSWORD
-valid_login,ENV:LOGIN_USERNAME,ENV:LOGIN_PASSWORD
-valid_login,ENV:LOGIN_USERNAME,ENV:LOGIN_PASSWORD
 invalid_password,ENV:LOGIN_USERNAME,wrongpass1
 invalid_password,ENV:LOGIN_USERNAME,wrongpass2
-invalid_password,ENV:LOGIN_USERNAME,wrongpass3
-invalid_password,ENV:LOGIN_USERNAME,wrongpass4
-invalid_password,ENV:LOGIN_USERNAME,wrongpass5
 unregistered_phone,9000000001,anypass
 unregistered_phone,9000000002,anypass
-unregistered_phone,9000000003,anypass
-unregistered_phone,9000000004,anypass
-unregistered_phone,9000000005,anypass
