@@ -41,13 +41,34 @@ jobs:
           key: maven-${{ hashFiles('**/pom.xml') }}
 
       - name: Run TestNG sequence suite
+        id: run_tests
+        continue-on-error: true
         run: mvn -q clean test "-Dsurefire.suiteXmlFiles=src/test/resources/testng-sequence.xml"
 
       - name: Create ZIP of Reports
+        if: always()
         run: |
-          zip -r ui-smoke-report-${{ github.run_number }}.zip reports/
+          if [ -d reports ] || [ -d target/surefire-reports ]; then
+            zip -r ui-smoke-report-${{ github.run_number }}.zip reports/ target/surefire-reports/ || true
+          else
+            mkdir -p report-fallback
+            echo "No report folders were generated." > report-fallback/README.txt
+            zip -r ui-smoke-report-${{ github.run_number }}.zip report-fallback/
+          fi
+
+      - name: Upload run artifacts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: ui-test-artifacts-${{ github.run_number }}
+          path: |
+            reports/**
+            target/surefire-reports/**
+            ui-smoke-report-${{ github.run_number }}.zip
+          if-no-files-found: warn
 
       - name: Checkout public repo
+        if: always()
         uses: actions/checkout@v4
         with:
           repository: ${{ secrets.PUBLIC_REPO }}
@@ -56,10 +77,12 @@ jobs:
           ref: main  # update if your public repo default branch is different
 
       - name: Copy ZIP into public repo
+        if: always()
         run: |
           cp ui-smoke-report-${{ github.run_number }}.zip public-reports/
 
       - name: Commit and push ZIP
+        if: always()
         run: |
           cd public-reports
           git config user.email "github-actions[bot]@users.noreply.github.com"
@@ -69,10 +92,12 @@ jobs:
           git push
 
       - name: Set Public ZIP URL
+        if: always()
         run: |
           echo "ZIP_PUBLIC_URL=https://raw.githubusercontent.com/${{ secrets.PUBLIC_REPO }}/main/ui-smoke-report-${{ github.run_number }}.zip" >> $GITHUB_ENV
 
       - name: Collect Test Summary
+        if: always()
         shell: bash
         run: |
           files=(target/surefire-reports/TEST-*.xml)
@@ -98,9 +123,10 @@ jobs:
           echo "TESTS_SKIPPED=$skipped" >> $GITHUB_ENV
 
       - name: Notify Teams (Adaptive Card)
+        if: always()
         env:
           TEAMS_WORKFLOW_URL: ${{ secrets.TEAMS_WORKFLOW_URL }}
-          JOB_STATUS: ${{ job.status }}
+          JOB_STATUS: ${{ steps.run_tests.outcome }}
         run: |
           RUN_URL="https://github.com/${GITHUB_REPOSITORY}/actions/runs/${GITHUB_RUN_ID}"
 
@@ -157,3 +183,11 @@ jobs:
           curl -sS -X POST "$TEAMS_WORKFLOW_URL" \
             -H "Content-Type: application/json" \
             --data-raw "$payload"
+
+      - name: Fail workflow if tests failed
+        if: always()
+        run: |
+          if [ "${{ steps.run_tests.outcome }}" != "success" ]; then
+            echo "Tests failed in TestNG sequence run."
+            exit 1
+          fi
