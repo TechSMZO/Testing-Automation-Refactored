@@ -1,0 +1,34 @@
+{
+  "type": "AdaptiveCard",
+  "$schema": "http://adaptivecards.io/schemas/adaptive-card.json",
+  "version": "1.4",
+  "body": [
+    {
+      "type": "TextBlock",
+      "text": "UI Smoke Tests (Pilot)",
+      "weight": "Bolder",
+      "size": "Medium"
+    },
+    {
+      "type": "TextBlock",
+      "text": "Status: success",
+      "wrap": true
+    },
+    {
+      "type": "FactSet",
+      "facts": [
+        { "title": "Workflow", "value": "UI Smoke Tests (Pilot)" },
+        { "title": "Branch", "value": "main" },
+        { "title": "Run", "value": "#1000" },
+        { "title": "Repo", "value": "TechSMZO/Selenium-UI-Automation" }
+      ]
+    }
+  ],
+  "actions": [
+    {
+      "type": "Action.OpenUrl",
+      "title": "Open GitHub Run",
+      "url": "https://github.com/TechSMZO/Selenium-UI-Automation/actions"
+    }
+  ]
+}

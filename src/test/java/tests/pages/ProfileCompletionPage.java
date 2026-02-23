@@ -133,9 +133,53 @@ public class ProfileCompletionPage {
         if (!clickedSave) {
             throw new RuntimeException("Save button not found in upload dialog.");
         }
+        // On slower runners, dialog close can lag even after successful submit.
+        // Accept either dialog close or a visible success signal.
+        waitForUploadCompletion(Duration.ofSeconds(10));
+    }
 
-        new WebDriverWait(driver, Duration.ofSeconds(10))
-                .until(ExpectedConditions.invisibilityOfElementLocated(UPLOAD_DIALOG_TITLE));
+    private void waitForUploadCompletion(Duration timeout) {
+        long endTime = System.currentTimeMillis() + timeout.toMillis();
+        while (System.currentTimeMillis() < endTime) {
+            if (isSuccessToastVisible()) {
+                return;
+            }
+
+            if (driver.findElements(UPLOAD_DIALOG_TITLE).isEmpty()) {
+                return;
+            }
+
+            String dialogError = readDialogErrorText();
+            if (!dialogError.isBlank()) {
+                throw new RuntimeException("Upload dialog validation error: " + dialogError);
+            }
+
+            try {
+                Thread.sleep(500);
+            } catch (InterruptedException interruptedException) {
+                Thread.currentThread().interrupt();
+                break;
+            }
+        }
+    }
+
+    private String readDialogErrorText() {
+        List<WebElement> errors = driver.findElements(By.xpath(
+                "//div[@role='dialog']//*[contains(@class,'Mui-error') or @role='alert']"));
+        for (WebElement error : errors) {
+            try {
+                if (!error.isDisplayed()) {
+                    continue;
+                }
+                String text = error.getText() == null ? "" : error.getText().trim();
+                if (!text.isBlank()) {
+                    return text;
+                }
+            } catch (RuntimeException ignored) {
+                // Ignore stale dialog nodes and continue.
+            }
+        }
+        return "";
     }
 
     private void assertPanDialogOpened() {

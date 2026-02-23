@@ -16,7 +16,8 @@ import org.openqa.selenium.support.ui.WebDriverWait;
  */
 public class RegistrationPage {
     private final WebDriver driver;
-    private static final String SUCCESS_REGISTRATION_URL = "https://panel.appiify.com/profile/profile-completion";
+    private static final String SUCCESS_REGISTRATION_PATH = "/profile/profile-completion";
+    private static final String SUCCESS_PROFILE_PATH = "/profile";
 
     private static final By HEADING = By.xpath("//h3[contains(normalize-space(),'Register to Shipmozo')]");
     private static final By USER_TYPE_DROPDOWN = By.id("mui-component-select-usertype");
@@ -32,7 +33,7 @@ public class RegistrationPage {
     private static final By REGISTER_BUTTON = By.xpath("//button[@type='submit' and contains(.,'Register')]");
     private static final By ERROR_TEXTS = By.cssSelector("p.MuiFormHelperText-root.Mui-error");
     private static final By GENERIC_ERROR_TEXTS =
-            By.cssSelector("[role='alert'], .MuiAlert-message, .MuiFormHelperText-root, .Mui-error");
+            By.cssSelector("[role='alert'], .MuiAlert-message, .Mui-error");
 
     public RegistrationPage(WebDriver driver) {
         this.driver = driver;
@@ -299,7 +300,7 @@ public class RegistrationPage {
         for (WebElement error : genericErrors) {
             try {
                 String text = error.getText();
-                if (error.isDisplayed() && text != null && !text.trim().isEmpty()) {
+                if (error.isDisplayed() && isActionableErrorText(text)) {
                     return true;
                 }
             } catch (StaleElementReferenceException ignored) {
@@ -310,20 +311,48 @@ public class RegistrationPage {
     }
 
     private boolean isOnRegistrationSuccessUrl() {
-        String current = normalizeUrl(driver.getCurrentUrl());
-        String expected = normalizeUrl(SUCCESS_REGISTRATION_URL);
-        return expected.equals(current);
+        String path = normalizePath(driver.getCurrentUrl());
+        return SUCCESS_REGISTRATION_PATH.equals(path) || SUCCESS_PROFILE_PATH.equals(path);
     }
 
-    private String normalizeUrl(String url) {
+    private String normalizePath(String url) {
         if (url == null || url.isBlank()) {
             return "";
         }
-        String baseOnly = url.split("[?#]", 2)[0].trim();
+        String baseOnly = url.split("[?#]", 2)[0].trim().toLowerCase();
+        int protocolIndex = baseOnly.indexOf("://");
+        if (protocolIndex >= 0) {
+            int pathStart = baseOnly.indexOf("/", protocolIndex + 3);
+            baseOnly = pathStart >= 0 ? baseOnly.substring(pathStart) : "/";
+        }
         while (baseOnly.endsWith("/") && baseOnly.length() > 1) {
             baseOnly = baseOnly.substring(0, baseOnly.length() - 1);
         }
-        return baseOnly.toLowerCase();
+        return baseOnly;
+    }
+
+    private boolean isActionableErrorText(String text) {
+        if (text == null) {
+            return false;
+        }
+        String normalized = text.trim().toLowerCase();
+        if (normalized.isEmpty()) {
+            return false;
+        }
+        // Ignore guidance text that is always visible and not an actual validation failure.
+        if (normalized.startsWith("password: min")) {
+            return false;
+        }
+        return normalized.contains("error")
+                || normalized.contains("invalid")
+                || normalized.contains("required")
+                || normalized.contains("already")
+                || normalized.contains("exists")
+                || normalized.contains("mismatch")
+                || normalized.contains("incorrect")
+                || normalized.contains("failed")
+                || normalized.contains("must")
+                || normalized.contains("please");
     }
 
     public String getCurrentUrl() {

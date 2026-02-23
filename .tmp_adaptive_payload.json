@@ -1,0 +1,26 @@
+{
+  "type": "message",
+  "attachments": [
+    {
+      "contentType": "application/vnd.microsoft.card.adaptive",
+      "content": {
+        "$schema": "http://adaptivecards.io/schemas/adaptive-card.json",
+        "type": "AdaptiveCard",
+        "version": "1.4",
+        "body": [
+          {
+            "type": "TextBlock",
+            "text": "?? UI Smoke Test Completed",
+            "weight": "Bolder",
+            "size": "Medium"
+          },
+          {
+            "type": "TextBlock",
+            "text": "Branch: $GITHUB_REF_NAME\nRun: #$GITHUB_RUN_NUMBER\nStatus: $JOB_STATUS",
+            "wrap": true
+          }
+        ]
+      }
+    }
+  ]
+}
