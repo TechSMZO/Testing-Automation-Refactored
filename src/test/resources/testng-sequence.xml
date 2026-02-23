@@ -17,8 +17,7 @@
                 <include name="smoke"/>
             </run>
         </groups>
-        <classes>
-            
+        <classes>            
             <class name="tests.RegistrationTest"/>
             <class name="tests.ProfileCompletionTest"/>
             <class name="tests.CourierAssignmentTest"/>

@@ -18,7 +18,7 @@ import tests.utils.ExtentManager;
  */
 public class RegistrationTest extends BaseTest {
     private static final String DEFAULT_BASE_URL = "https://panel.appiify.com/";
-    private static final Duration REGISTRATION_RESULT_TIMEOUT = Duration.ofSeconds(10);
+    private static final Duration REGISTRATION_RESULT_TIMEOUT = Duration.ofSeconds(20);
     private static final String REGISTRATION_OTP = "111111";
 
     public RegistrationTest() {
@@ -38,14 +38,20 @@ public class RegistrationTest extends BaseTest {
                 .assignCategory("registration", "valid_registration", browser);
         try {
             RegistrationPage registrationPage = submitRegistrationForm(data, test);
-            registrationPage.waitForOutcome(REGISTRATION_RESULT_TIMEOUT);
+            RegistrationPage.RegistrationOutcome outcome = registrationPage.waitForOutcome(REGISTRATION_RESULT_TIMEOUT);
+            test.pass("Registration outcome detected: " + outcome,
+                    MediaEntityBuilder
+                            .createScreenCaptureFromPath(
+                                    ExtentManager.captureScreenshot(driver, data.getDatasetId() + "_outcome"))
+                            .build());
 
-            Assert.assertTrue(registrationPage.isRegistrationLikelySuccessful(),
-                    "Expected registration success for " + data.getDatasetId());
+            Assert.assertEquals(outcome, RegistrationPage.RegistrationOutcome.SUCCESS_URL,
+                    "Expected registration success for " + data.getDatasetId()
+                            + "; current URL: " + registrationPage.getCurrentUrl());
 
             test.pass("SUCCESS validated for " + data.getDatasetId(),
                     MediaEntityBuilder
-                            .createScreenCaptureFromPath(ExtentManager.captureScreenshot(driver, data.getDatasetId() + "_result"))
+                            .createScreenCaptureFromPath(ExtentManager.captureScreenshot(driver, data.getDatasetId() + "_passed"))
                             .build());
         } catch (TimeoutException timeoutException) {
             test.fail("Timeout while validating registration flow: " + timeoutException.getMessage(),
@@ -70,11 +76,16 @@ public class RegistrationTest extends BaseTest {
                 .assignCategory("registration", "invalid_email", browser);
         try {
             RegistrationPage registrationPage = submitRegistrationForm(data, test);
-            registrationPage.waitForOutcome(REGISTRATION_RESULT_TIMEOUT);
+            RegistrationPage.RegistrationOutcome outcome = registrationPage.waitForOutcome(REGISTRATION_RESULT_TIMEOUT);
+            test.pass("Registration outcome detected: " + outcome,
+                    MediaEntityBuilder
+                            .createScreenCaptureFromPath(
+                                    ExtentManager.captureScreenshot(driver, data.getDatasetId() + "_outcome"))
+                            .build());
 
-            Assert.assertFalse(registrationPage.isRegistrationLikelySuccessful(),
+            Assert.assertEquals(outcome, RegistrationPage.RegistrationOutcome.ERROR_TEXT,
                     "Expected registration failure for " + data.getDatasetId());
-            Assert.assertTrue(registrationPage.hasNonEmptyErrorText() || registrationPage.isLoaded(),
+            Assert.assertTrue(registrationPage.hasNonEmptyErrorText(),
                     "Expected validation feedback for " + data.getDatasetId());
 
             test.pass("ERROR validated for " + data.getDatasetId(),
@@ -104,11 +115,16 @@ public class RegistrationTest extends BaseTest {
                 .assignCategory("registration", "password_mismatch", browser);
         try {
             RegistrationPage registrationPage = submitRegistrationForm(data, test);
-            registrationPage.waitForOutcome(REGISTRATION_RESULT_TIMEOUT);
+            RegistrationPage.RegistrationOutcome outcome = registrationPage.waitForOutcome(REGISTRATION_RESULT_TIMEOUT);
+            test.pass("Registration outcome detected: " + outcome,
+                    MediaEntityBuilder
+                            .createScreenCaptureFromPath(
+                                    ExtentManager.captureScreenshot(driver, data.getDatasetId() + "_outcome"))
+                            .build());
 
-            Assert.assertFalse(registrationPage.isRegistrationLikelySuccessful(),
+            Assert.assertEquals(outcome, RegistrationPage.RegistrationOutcome.ERROR_TEXT,
                     "Expected registration failure for " + data.getDatasetId());
-            Assert.assertTrue(registrationPage.hasNonEmptyErrorText() || registrationPage.isLoaded(),
+            Assert.assertTrue(registrationPage.hasNonEmptyErrorText(),
                     "Expected validation feedback for " + data.getDatasetId());
 
             test.pass("ERROR validated for " + data.getDatasetId(),

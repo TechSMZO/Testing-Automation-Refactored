@@ -29,8 +29,7 @@ public class ProfileCompletionTest extends BaseTest {
     }
 
     @Test(description = "profile_completion_valid_flow",
-            groups = {"profile", "integration", "smoke", "regression"},
-            dependsOnGroups = {"registration-smoke"})
+            groups = {"profile", "integration", "smoke", "regression"})
     public void profile_completion_should_update_address_and_first_document() {
         ExtentTest test = extent.createTest("Profile Completion Flow - " + browser)
                 .assignCategory("profile", "integration", "smoke", browser);

@@ -16,6 +16,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
  */
 public class RegistrationPage {
     private final WebDriver driver;
+    private static final String SUCCESS_REGISTRATION_URL = "https://panel.appiify.com/profile/profile-completion";
 
     private static final By HEADING = By.xpath("//h3[contains(normalize-space(),'Register to Shipmozo')]");
     private static final By USER_TYPE_DROPDOWN = By.id("mui-component-select-usertype");
@@ -35,6 +36,11 @@ public class RegistrationPage {
 
     public RegistrationPage(WebDriver driver) {
         this.driver = driver;
+    }
+
+    public enum RegistrationOutcome {
+        SUCCESS_URL,
+        ERROR_TEXT
     }
 
     public void open(String baseUrl) {
@@ -243,44 +249,20 @@ public class RegistrationPage {
     }
 
     /**
-     * Waits until either redirect happens or an error block is visible on the form.
+     * Waits only for two outcomes:
+     * 1) redirect to registration success URL
+     * 2) visible non-empty error text
      */
-    public void waitForOutcome(Duration timeout) {
+    public RegistrationOutcome waitForOutcome(Duration timeout) {
         WebDriverWait wait = new WebDriverWait(driver, timeout);
-        wait.until(webDriver -> {
-            String url = webDriver.getCurrentUrl().toLowerCase();
-            if (!url.contains("/register")) {
-                return true;
+        return wait.until(webDriver -> {
+            if (isOnRegistrationSuccessUrl()) {
+                return RegistrationOutcome.SUCCESS_URL;
             }
-
-            if (hasNonEmptyErrorText()) {
-                return true;
+            if (hasAnyVisibleErrorText()) {
+                return RegistrationOutcome.ERROR_TEXT;
             }
-
-            List<WebElement> genericErrors = webDriver.findElements(GENERIC_ERROR_TEXTS);
-            for (WebElement error : genericErrors) {
-                try {
-                    String text = error.getText();
-                    if (error.isDisplayed() && text != null && !text.trim().isEmpty()) {
-                        return true;
-                    }
-                } catch (StaleElementReferenceException ignored) {
-                    // Ignore stale error node and continue polling.
-                }
-            }
-
-            List<WebElement> registerButtons = webDriver.findElements(REGISTER_BUTTON);
-            if (!registerButtons.isEmpty()) {
-                try {
-                    if (!registerButtons.get(0).isEnabled()) {
-                        return true;
-                    }
-                } catch (StaleElementReferenceException ignored) {
-                    // Ignore stale button node and continue polling.
-                }
-            }
-
-            return false;
+            return null;
         });
     }
 
@@ -288,12 +270,7 @@ public class RegistrationPage {
      * Success heuristic based on observed registration redirect behavior.
      */
     public boolean isRegistrationLikelySuccessful() {
-        String url = driver.getCurrentUrl().toLowerCase();
-        return url.contains("/login")
-                || url.contains("verify")
-                || url.contains("otp")
-                || url.contains("orders/new")
-                || !url.contains("/register");
+        return isOnRegistrationSuccessUrl();
     }
 
     /**
@@ -302,12 +279,82 @@ public class RegistrationPage {
     public boolean hasNonEmptyErrorText() {
         List<WebElement> errors = driver.findElements(ERROR_TEXTS);
         for (WebElement error : errors) {
-            String text = error.getText();
-            if (text != null && !text.trim().isEmpty()) {
-                return true;
+            try {
+                String text = error.getText();
+                if (error.isDisplayed() && text != null && !text.trim().isEmpty()) {
+                    return true;
+                }
+            } catch (StaleElementReferenceException ignored) {
+                // Ignore stale element and continue.
             }
         }
         return false;
+    }
+
+    private boolean hasAnyVisibleErrorText() {
+        if (hasNonEmptyErrorText()) {
+            return true;
+        }
+        List<WebElement> genericErrors = driver.findElements(GENERIC_ERROR_TEXTS);
+        for (WebElement error : genericErrors) {
+            try {
+                String text = error.getText();
+                if (error.isDisplayed() && text != null && !text.trim().isEmpty()) {
+                    return true;
+                }
+            } catch (StaleElementReferenceException ignored) {
+                // Ignore stale element and continue.
+            }
+        }
+        return false;
+    }
+
+    private boolean isOnRegistrationSuccessUrl() {
+        String current = normalizeUrl(driver.getCurrentUrl());
+        String expected = normalizeUrl(SUCCESS_REGISTRATION_URL);
+        return expected.equals(current);
+    }
+
+    private String normalizeUrl(String url) {
+        if (url == null || url.isBlank()) {
+            return "";
+        }
+        String baseOnly = url.split("[?#]", 2)[0].trim();
+        while (baseOnly.endsWith("/") && baseOnly.length() > 1) {
+            baseOnly = baseOnly.substring(0, baseOnly.length() - 1);
+        }
+        return baseOnly.toLowerCase();
+    }
+
+    public String getCurrentUrl() {
+        return driver.getCurrentUrl();
+    }
+
+    public String captureFirstVisibleErrorText() {
+        List<WebElement> primaryErrors = driver.findElements(ERROR_TEXTS);
+        for (WebElement error : primaryErrors) {
+            try {
+                String text = error.getText();
+                if (error.isDisplayed() && text != null && !text.trim().isEmpty()) {
+                    return text.trim();
+                }
+            } catch (StaleElementReferenceException ignored) {
+                // Ignore stale element and continue.
+            }
+        }
+
+        List<WebElement> genericErrors = driver.findElements(GENERIC_ERROR_TEXTS);
+        for (WebElement error : genericErrors) {
+            try {
+                String text = error.getText();
+                if (error.isDisplayed() && text != null && !text.trim().isEmpty()) {
+                    return text.trim();
+                }
+            } catch (StaleElementReferenceException ignored) {
+                // Ignore stale element and continue.
+            }
+        }
+        return "";
     }
 
     private void type(By locator, String value) {
