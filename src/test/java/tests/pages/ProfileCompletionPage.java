@@ -1,7 +1,10 @@
 package tests.pages;
 
+import java.awt.Robot;
+import java.awt.Toolkit;
+import java.awt.datatransfer.StringSelection;
+import java.awt.event.KeyEvent;
 import java.time.Duration;
-import java.util.ArrayList;
 import java.util.List;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
@@ -32,13 +35,14 @@ public class ProfileCompletionPage {
     private static final By UPLOAD_DIALOG_TITLE = By.xpath("//div[@role='dialog']//*[normalize-space()='Upload document']");
     private static final By DIALOG_DOCUMENT_NAME_INPUT = By.xpath("//div[@role='dialog']//input[@placeholder='Document name']");
     private static final By DOCUMENT_NUMBER_INPUT = By.xpath("//div[@role='dialog']//input[@placeholder='Enter document number']");
-    private static final By ATTACH_FILE_INPUT_PROXY = By.xpath("//div[@role='dialog']//input[@placeholder='Select file']");
-    private static final By ATTACH_FILE_BUTTON = By.xpath("//div[@role='dialog']//*[normalize-space()='Attach File']/following::button[1]");
-    private static final By ATTACH_FILE_AREA = By.xpath("//div[@role='dialog']//*[contains(normalize-space(),'Select file')]");
-    private static final By FILE_INPUT_IN_DIALOG = By.xpath("//div[@role='dialog']//input[@type='file']");
-    private static final By FILE_INPUT_ANYWHERE = By.xpath("//input[@type='file']");
-    private static final By FILE_INPUT_BROAD = By.cssSelector(
-            "input[type='file'], input[accept*='image'], input[accept*='pdf'], input[accept*='.png'], input[accept*='.jpg']");
+    private static final By ATTACH_FILE_INPUT_PROXY = By.xpath(
+            "//div[@role='dialog']//input[contains(translate(@placeholder,'ABCDEFGHIJKLMNOPQRSTUVWXYZ','abcdefghijklmnopqrstuvwxyz'),'file')]");
+    private static final By ATTACH_FILE_BUTTON = By.xpath(
+            "//div[@role='dialog']//*[contains(translate(normalize-space(),'ABCDEFGHIJKLMNOPQRSTUVWXYZ','abcdefghijklmnopqrstuvwxyz'),'attach file')]/following::button[1]");
+    private static final By ATTACH_FILE_AREA = By.xpath(
+            "//div[@role='dialog']//*[contains(translate(normalize-space(),'ABCDEFGHIJKLMNOPQRSTUVWXYZ','abcdefghijklmnopqrstuvwxyz'),'select file')]");
+    private static final By ATTACH_FILE_ICON_BUTTON = By.xpath(
+            "//div[@role='dialog']//*[contains(translate(normalize-space(),'ABCDEFGHIJKLMNOPQRSTUVWXYZ','abcdefghijklmnopqrstuvwxyz'),'attach file')]/following::button[.//*[name()='svg']][1]");
     private static final By SAVE_IN_DIALOG = By.xpath("//div[@role='dialog']//button[normalize-space()='Save']");
     private static final By PAN_NUMBER_CELL = By.xpath(
             "//tr[.//*[contains(normalize-space(),'PAN Card/Driving License')]]/td[2]");
@@ -115,9 +119,8 @@ public class ProfileCompletionPage {
 
         type(DOCUMENT_NUMBER_INPUT, documentNumber);
 
-        // Some builds create file input only after clicking attach area.
-        clickIfPresent(ATTACH_FILE_AREA);
-        attachFileUsingInput(filePath);
+        // Local flow: open native file picker and paste file path.
+        uploadUsingSystemDialog(filePath);
 
         boolean clickedSave = clickIfPresent(SAVE_IN_DIALOG);
         if (!clickedSave) {
@@ -183,78 +186,77 @@ public class ProfileCompletionPage {
         }
     }
 
-    private void attachFileUsingInput(String filePath) {
-        long endTime = System.currentTimeMillis() + Duration.ofSeconds(10).toMillis();
-        RuntimeException lastException = null;
-
-        while (System.currentTimeMillis() < endTime) {
-            if (trySendFileInCurrentContext(filePath)) {
-                return;
-            }
-            if (trySendFileInFrames(filePath)) {
-                return;
-            }
-
-            // Re-open attach trigger so frameworks can recreate the file input.
-            clickIfPresent(ATTACH_FILE_INPUT_PROXY);
-            clickIfPresent(ATTACH_FILE_BUTTON);
-            clickIfPresent(ATTACH_FILE_AREA);
-
-            try {
-                Thread.sleep(500);
-            } catch (InterruptedException interruptedException) {
-                Thread.currentThread().interrupt();
-                break;
-            }
+    private void uploadUsingSystemDialog(String filePath) {
+        boolean opened = false;
+        if (!driver.findElements(UPLOAD_DIALOG_TITLE).isEmpty()) {
+            opened = clickIfPresent(ATTACH_FILE_ICON_BUTTON);
         }
-
-        if (lastException != null) {
-            throw new RuntimeException("Failed to upload via input[type=file]: " + lastException.getMessage(), lastException);
+        if (!opened) {
+            opened = clickIfPresent(ATTACH_FILE_INPUT_PROXY);
         }
-        throw new RuntimeException("Failed to upload: no usable input[type=file] found in upload dialog. URL: "
-                + driver.getCurrentUrl());
+        if (!opened) {
+            opened = clickIfPresent(ATTACH_FILE_BUTTON);
+        }
+        if (!opened) {
+            opened = clickIfPresent(ATTACH_FILE_AREA);
+        }
+        if (!opened) {
+            throw new RuntimeException("Attach file control not clickable for native upload. " + uploadDialogSnapshot());
+        }
+        try {
+            Thread.sleep(1000);
+            StringSelection selection = new StringSelection(filePath);
+            Toolkit.getDefaultToolkit().getSystemClipboard().setContents(selection, null);
+
+            Robot robot = new Robot();
+            robot.keyPress(KeyEvent.VK_CONTROL);
+            robot.keyPress(KeyEvent.VK_V);
+            robot.keyRelease(KeyEvent.VK_V);
+            robot.keyRelease(KeyEvent.VK_CONTROL);
+
+            Thread.sleep(500);
+            robot.keyPress(KeyEvent.VK_ENTER);
+            robot.keyRelease(KeyEvent.VK_ENTER);
+            Thread.sleep(1000);
+        } catch (Exception exception) {
+            throw new RuntimeException("Native file dialog upload failed: " + exception.getMessage(), exception);
+        }
     }
 
-    private boolean trySendFileInCurrentContext(String filePath) {
-        List<WebElement> fileInputs = new ArrayList<>();
-        fileInputs.addAll(driver.findElements(FILE_INPUT_IN_DIALOG));
-        fileInputs.addAll(driver.findElements(FILE_INPUT_ANYWHERE));
-        fileInputs.addAll(driver.findElements(FILE_INPUT_BROAD));
-
-        for (WebElement fileInput : fileInputs) {
-            try {
-                ((JavascriptExecutor) driver).executeScript(
-                        "arguments[0].style.display='block'; arguments[0].style.visibility='visible';"
-                                + "arguments[0].style.opacity=1; arguments[0].removeAttribute('hidden');"
-                                + "arguments[0].removeAttribute('disabled');",
-                        fileInput);
-                fileInput.sendKeys(filePath);
-                return true;
-            } catch (RuntimeException ignored) {
-                // Try next candidate.
-            }
-        }
-        return false;
-    }
-
-    private boolean trySendFileInFrames(String filePath) {
-        List<WebElement> frames = driver.findElements(By.cssSelector("iframe, frame"));
-        for (WebElement frame : frames) {
-            try {
-                driver.switchTo().frame(frame);
-                if (trySendFileInCurrentContext(filePath)) {
-                    driver.switchTo().defaultContent();
-                    return true;
+    private String uploadDialogSnapshot() {
+        StringBuilder sb = new StringBuilder();
+        try {
+            List<WebElement> dialogs = driver.findElements(By.cssSelector("div[role='dialog']"));
+            sb.append("dialogs=").append(dialogs.size()).append("; ");
+            if (!dialogs.isEmpty()) {
+                String text = dialogs.get(0).getText();
+                if (text != null) {
+                    String compact = text.replaceAll("\\s+", " ").trim();
+                    if (compact.length() > 300) {
+                        compact = compact.substring(0, 300) + "...";
+                    }
+                    sb.append("dialogText=").append(compact).append("; ");
                 }
-            } catch (RuntimeException ignored) {
-                // Ignore invalid frame and continue.
-            } finally {
-                driver.switchTo().defaultContent();
+                List<WebElement> buttons = dialogs.get(0).findElements(By.tagName("button"));
+                sb.append("buttons=").append(buttons.size()).append("; ");
+                for (int i = 0; i < Math.min(buttons.size(), 5); i++) {
+                    String bt = buttons.get(i).getText();
+                    sb.append("btn[").append(i).append("]=").append(bt == null ? "" : bt.trim()).append("; ");
+                }
+                List<WebElement> inputs = dialogs.get(0).findElements(By.tagName("input"));
+                sb.append("inputs=").append(inputs.size()).append("; ");
+                for (int i = 0; i < Math.min(inputs.size(), 8); i++) {
+                    WebElement input = inputs.get(i);
+                    sb.append("in[").append(i).append("]{type=").append(input.getAttribute("type"))
+                            .append(",placeholder=").append(input.getAttribute("placeholder"))
+                            .append(",id=").append(input.getAttribute("id")).append("}; ");
+                }
             }
+        } catch (RuntimeException ignored) {
+            sb.append("dialogSnapshotError;");
         }
-        return false;
+        return sb.toString();
     }
-
 
     public boolean isPanNumberUpdated(String documentNumber, Duration timeout) {
         try {
